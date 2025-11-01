@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Quiz with Sidebar</title>
+<title>Interactive Quiz with Google Maps Logo</title>
 <style>
   body {
-    font-family: 'Arial', sans-serif;
-    background: #282c34;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff); /* light blue gradient */
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
     margin: 0;
-    color: #fff;
+    color: #333;
   }
 
   .container {
-    background: linear-gradient(145deg, #ff6b6b, #feca57);
+    background: #ffffff; /* white quiz box */
     border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
     width: 750px;
     max-width: 95%;
     padding: 30px;
@@ -36,7 +36,7 @@
   h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #fff;
+    color: #333;
   }
 
   #question {
@@ -51,7 +51,7 @@
   }
 
   li {
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(0,0,0,0.05);
     margin: 12px 0;
     padding: 15px;
     cursor: pointer;
@@ -62,10 +62,10 @@
   }
 
   li:hover {
-    background: rgba(255,255,255,0.5);
-    transform: scale(1.1);
+    background: #d0f0fd;
+    transform: scale(1.05);
     color: #000;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   }
 
   li.correct { background-color: #00b894 !important; color: #fff; }
@@ -91,31 +91,30 @@
 
   #result h2 { text-align: center; }
 
-  /* Sidebar on the right */
   .sidebar {
     width: 140px;
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-left: 20px;
-    align-items: stretch;
+    align-items: center;
   }
 
-  .sidebar button {
+  .sidebar button, .sidebar img {
     padding: 10px;
     font-size: 14px;
     border-radius: 12px;
     width: 100%;
-    background: #00cec9;
+    cursor: pointer;
     transition: 0.3s;
   }
 
   .sidebar button:hover { background: #00b894; }
+  .sidebar img:hover { transform: scale(1.1); }
 
-  /* Right side vertical progress bar */
   .progress-container {
     width: 30px;
-    background: rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.05);
     border-radius: 15px;
     margin-bottom: 20px;
     position: relative;
@@ -134,7 +133,7 @@
     .container { flex-direction: column; }
     .quiz-content { padding-right: 0; }
     .sidebar { flex-direction: row; width: 100%; justify-content: space-around; margin-top: 20px; }
-    .sidebar button { width: auto; }
+    .sidebar button, .sidebar img { width: auto; }
     .progress-container { display: none; }
   }
 
@@ -147,11 +146,11 @@
     <div id="quiz">
       <div id="question"></div>
       <ul id="choices"></ul>
-      <button id="next" onclick="nextQuestion()">Next Question</button>
+      <button id="next">Next Question</button>
     </div>
     <div id="result" class="hidden">
       <h2>Your Score: <span id="score"></span></h2>
-      <button onclick="restartQuiz()">Restart Quiz</button>
+      <button id="restart">Restart Quiz</button>
     </div>
   </div>
 
@@ -159,9 +158,10 @@
     <div class="progress-container">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
-    <button onclick="openGoogleMaps()">Google Maps</button>
-    <button onclick="alert('This quiz has 5 questions. Select the correct answer and click Next.')">Quiz Info</button>
-    <button onclick="alert('Need help? Read the instructions carefully!')">Help</button>
+    <!-- Google Maps logo button -->
+    <img id="maps" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Google_Maps_Logo.png" alt="Google Maps" width="80">
+    <button id="info">Quiz Info</button>
+    <button id="help">Help</button>
   </div>
 </div>
 
@@ -184,47 +184,62 @@ const scoreEl = document.getElementById("score");
 const quizEl = document.getElementById("quiz");
 const progressBar = document.getElementById("progress-bar");
 
+const nextBtn = document.getElementById("next");
+const restartBtn = document.getElementById("restart");
+const mapsBtn = document.getElementById("maps");
+const infoBtn = document.getElementById("info");
+const helpBtn = document.getElementById("help");
+
 function loadQuestion(){
   const current = quizData[currentQuestion];
   questionEl.innerText = current.question;
   choicesEl.innerHTML = "";
   updateProgress();
   current.choices.forEach(choice=>{
-    const li=document.createElement("li");
-    li.innerText=choice;
+    const li = document.createElement("li");
+    li.innerText = choice;
     li.addEventListener("click",()=>selectAnswer(li,choice));
     choicesEl.appendChild(li);
   });
 }
 
-function selectAnswer(li,choice){
-  const correctAnswer = quizData[currentQuestion].answer;
-  if(choice===correctAnswer){ li.classList.add("correct"); score++; }
-  else{ li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c=>{if(c.innerText===correctAnswer)c.classList.add("correct");}); }
+function selectAnswer(li, choice){
+  const correct = quizData[currentQuestion].answer;
+  if(choice === correct){ li.classList.add("correct"); score++; }
+  else{ li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c=>{if(c.innerText===correct)c.classList.add("correct");}); }
   document.querySelectorAll("#choices li").forEach(li=>li.style.pointerEvents="none");
 }
 
 function nextQuestion(){
   currentQuestion++;
-  if(currentQuestion<quizData.length) loadQuestion();
+  if(currentQuestion < quizData.length) loadQuestion();
   else showResult();
 }
 
 function showResult(){
   quizEl.classList.add("hidden");
   resultEl.classList.remove("hidden");
-  scoreEl.innerText=`${score} / ${quizData.length}`;
+  scoreEl.innerText = `${score} / ${quizData.length}`;
   progressBar.style.height="100%";
 }
 
 function restartQuiz(){ currentQuestion=0; score=0; resultEl.classList.add("hidden"); quizEl.classList.remove("hidden"); loadQuestion(); }
 
-function updateProgress(){ progressBar.style.height=`${(currentQuestion/quizData.length)*100}%`; }
+function updateProgress(){ progressBar.style.height = `${(currentQuestion/quizData.length)*100}%`; }
 
-function openGoogleMaps(){
-  window.open("https://www.google.com/maps", "_blank");
-}
+function openGoogleMaps(){ window.open("https://www.google.com/maps", "_blank"); }
 
+function showInfo(){ alert('This quiz has 5 questions. Select the correct answer and click Next.'); }
+function showHelp(){ alert('Need help? Read the instructions carefully!'); }
+
+// Event listeners
+nextBtn.addEventListener("click", nextQuestion);
+restartBtn.addEventListener("click", restartQuiz);
+mapsBtn.addEventListener("click", openGoogleMaps);
+infoBtn.addEventListener("click", showInfo);
+helpBtn.addEventListener("click", showHelp);
+
+// Initial load
 loadQuestion();
 </script>
 </body>
