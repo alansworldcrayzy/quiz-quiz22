@@ -6,26 +6,41 @@
 <title>Physics Quiz</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #7F7FD5, #86A8E7, #91EAE4);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: 250vh; /* makes page scrollable */
     margin: 0;
     color: #fff;
+    overflow-x: hidden;
   }
 
   .container {
-    background: linear-gradient(145deg, #6a0dad, #9b30ff); /* purple gradient */
+    background: linear-gradient(145deg, #8e2de2, #4a00e0);
     border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     width: 750px;
     max-width: 95%;
     padding: 30px;
     display: flex;
     flex-direction: row;
     position: relative;
+    color: #fff;
+    margin-top: 100px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease;
+  }
+
+  .container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  @keyframes fadeInUp {
+    from {opacity: 0; transform: translateY(50px);}
+    to {opacity: 1; transform: translateY(0);}
   }
 
   .quiz-content {
@@ -37,13 +52,19 @@
     text-align: center;
     margin-bottom: 20px;
     color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
   }
 
   #question {
     font-size: 1.4em;
     margin-bottom: 20px;
     font-weight: bold;
-    color: #fff;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  #question:hover {
+    color: #ffd32a;
+    transform: scale(1.05);
   }
 
   ul {
@@ -60,14 +81,13 @@
     font-size: 1.1em;
     transition: all 0.3s ease;
     text-align: center;
-    color: #fff;
   }
 
   li:hover {
     background: rgba(255,255,255,0.4);
-    transform: scale(1.05);
+    transform: scale(1.07);
     color: #000;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   }
 
   li.correct { background-color: #00b894 !important; color: #fff; }
@@ -82,12 +102,17 @@
     cursor: pointer;
     border: none;
     border-radius: 15px;
-    background: #0984e3;
+    background: #00bcd4;
     color: #fff;
     transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0,188,212,0.5);
   }
 
-  button:hover { background: #6c5ce7; }
+  button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 20px rgba(3,169,244,0.7);
+    transform: translateY(-2px);
+  }
 
   .hidden { display: none; }
 
@@ -102,17 +127,31 @@
     align-items: center;
   }
 
-  .sidebar button, .sidebar img {
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 12px;
-    width: 100%;
+  /* --- Map button --- */
+  #map-button {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 15px;
     cursor: pointer;
-    transition: 0.3s;
+    padding: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
-  .sidebar button:hover { background: #00b894; }
-  .sidebar img:hover { transform: scale(1.1); }
+  #map-button:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #00ffea;
+  }
+
+  #map-button img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+  }
 
   .progress-container {
     width: 30px;
@@ -126,46 +165,61 @@
   .progress-bar {
     width: 100%;
     height: 0%;
-    background: #00cec9;
+    background: #00ffc8;
     border-radius: 15px;
     transition: height 0.3s ease;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 150px;
+    padding: 40px;
+    color: #fff;
+    background: rgba(0,0,0,0.2);
+    width: 100%;
+    border-top: 2px solid rgba(255,255,255,0.3);
   }
 
   @media(max-width: 850px) {
     .container { flex-direction: column; }
     .quiz-content { padding-right: 0; }
     .sidebar { flex-direction: row; width: 100%; justify-content: space-around; margin-top: 20px; }
-    .sidebar button, .sidebar img { width: auto; }
     .progress-container { display: none; }
   }
-
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="quiz-content">
-    <h1>Physics Quiz</h1>
-    <div id="quiz">
-      <div id="question"></div>
-      <ul id="choices"></ul>
-      <button id="next">Next Question</button>
+  <div class="container">
+    <div class="quiz-content">
+      <h1>Physics Quiz</h1>
+      <div id="quiz">
+        <div id="question"></div>
+        <ul id="choices"></ul>
+        <button id="next">Next Question</button>
+      </div>
+      <div id="result" class="hidden">
+        <h2>Your Score: <span id="score"></span></h2>
+        <button id="restart">Restart Quiz</button>
+      </div>
     </div>
-    <div id="result" class="hidden">
-      <h2>Your Score: <span id="score"></span></h2>
-      <button id="restart">Restart Quiz</button>
+
+    <div class="sidebar">
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <!-- Map button -->
+      <button id="map-button">
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Google Maps">
+      </button>
+      <button id="info">Quiz Info</button>
+      <button id="help">Help</button>
     </div>
   </div>
 
-  <div class="sidebar">
-    <div class="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    <!-- Google Maps / Map logo -->
-    <img id="maps" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Map_icon.svg" alt="Map" width="80">
-    <button id="info">Quiz Info</button>
-    <button id="help">Help</button>
+  <div class="footer">
+    <h2>More Physics Fun Ahead!</h2>
+    <p>Scroll for more soon-to-be-added quizzes and topics — stay curious 🚀</p>
   </div>
-</div>
 
 <script>
 const quizData = [
@@ -190,7 +244,7 @@ const progressBar = document.getElementById("progress-bar");
 
 const nextBtn = document.getElementById("next");
 const restartBtn = document.getElementById("restart");
-const mapsBtn = document.getElementById("maps");
+const mapBtn = document.getElementById("map-button");
 const infoBtn = document.getElementById("info");
 const helpBtn = document.getElementById("help");
 
@@ -232,12 +286,12 @@ function restartQuiz(){ currentQuestion=0; score=0; resultEl.classList.add("hidd
 function updateProgress(){ progressBar.style.height = `${(currentQuestion/quizData.length)*100}%`; }
 
 function openGoogleMaps(){ window.open("https://www.google.com/maps", "_blank"); }
-function showInfo(){ alert('This quiz contains physics questions. Select the correct answer and click Next.'); }
-function showHelp(){ alert('Need help? Read the questions carefully!'); }
+function showInfo(){ alert('This quiz tests your physics knowledge. Select the correct answer and click Next.'); }
+function showHelp(){ alert('Tip: Think carefully — you can’t change your answer once selected!'); }
 
 nextBtn.addEventListener("click", nextQuestion);
 restartBtn.addEventListener("click", restartQuiz);
-mapsBtn.addEventListener("click", openGoogleMaps);
+mapBtn.addEventListener("click", openGoogleMaps);
 infoBtn.addEventListener("click", showInfo);
 helpBtn.addEventListener("click", showHelp);
 
