@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 250vh; /* makes page scrollable */
+    min-height: 300vh; /* longer page */
     margin: 0;
     color: #fff;
     overflow-x: hidden;
@@ -127,7 +127,6 @@
     align-items: center;
   }
 
-  /* --- Map button --- */
   #map-button {
     background: rgba(255,255,255,0.15);
     border: none;
@@ -170,14 +169,39 @@
     transition: height 0.3s ease;
   }
 
+  /* --- Study Section --- */
   .footer {
     text-align: center;
     margin-top: 150px;
-    padding: 40px;
+    padding: 50px;
     color: #fff;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.25);
     width: 100%;
     border-top: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .footer h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.4);
+  }
+
+  .fact {
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px auto;
+    width: 70%;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    transition: all 0.3s ease;
+  }
+
+  .fact:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    color: #000;
   }
 
   @media(max-width: 850px) {
@@ -207,7 +231,6 @@
       <div class="progress-container">
         <div class="progress-bar" id="progress-bar"></div>
       </div>
-      <!-- Map button -->
       <button id="map-button">
         <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Google Maps">
       </button>
@@ -217,8 +240,21 @@
   </div>
 
   <div class="footer">
-    <h2>More Physics Fun Ahead!</h2>
-    <p>Scroll for more soon-to-be-added quizzes and topics — stay curious 🚀</p>
+    <h2>Study Down Here 📘</h2>
+
+    <div class="fact">💡 The speed of light in a vacuum is approximately <b>299,792,458 meters per second</b>. Nothing travels faster than light!</div>
+
+    <div class="fact">⚙️ Sir Isaac Newton formulated the <b>three laws of motion</b> that describe how objects move and interact with forces.</div>
+
+    <div class="fact">🔌 The unit of electric current is the <b>Ampere (A)</b>, named after André-Marie Ampère, a pioneer in electromagnetism.</div>
+
+    <div class="fact">🌍 Planets stay in orbit because of the <b>gravitational force</b> between them and the Sun.</div>
+
+    <div class="fact">🧲 The acceleration due to gravity on Earth is roughly <b>9.8 m/s²</b>, meaning objects fall faster the longer they fall!</div>
+
+    <div class="fact">⚛️ The <b>electron</b> carries a negative charge and orbits the atomic nucleus — it's essential in electricity and bonding.</div>
+
+    <div class="fact">🧠 Albert Einstein’s <b>theory of relativity</b> revolutionized how we understand space, time, and gravity.</div>
   </div>
 
 <script>
