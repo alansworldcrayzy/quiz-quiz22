@@ -14,8 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 250vh;
-    overflow-x: hidden;
+    min-height: 280vh;
   }
 
   h1 {
@@ -32,7 +31,6 @@
     box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     margin-top: 30px;
     text-align: center;
-    animation: fadeIn 1s ease;
   }
 
   .setup select, .setup button {
@@ -78,10 +76,7 @@
     color: #fff;
     margin-top: 80px;
     transition: 0.3s;
-    animation: fadeIn 1s ease;
   }
-
-  @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
   #question {
     font-size: 1.4em;
@@ -145,12 +140,35 @@
     font-size: 1.1em;
     line-height: 1.5em;
     transition: 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    max-height: 70px;
   }
 
   .fact:hover {
     background: rgba(255,255,255,0.3);
     transform: scale(1.03);
     color: #000;
+  }
+
+  .fact.expanded {
+    max-height: 300px;
+    background: rgba(255,255,255,0.5);
+    color: #000;
+  }
+
+  .fact h3 {
+    margin: 0;
+    font-size: 1.3em;
+  }
+
+  .fact p {
+    margin-top: 10px;
+    display: none;
+  }
+
+  .fact.expanded p {
+    display: block;
   }
 </style>
 </head>
@@ -189,9 +207,31 @@
 
 <div class="footer">
   <h2>Study Down Here 📘</h2>
-  <div class="fact">⚛️ Physics: Everything in motion obeys Newton’s laws.</div>
-  <div class="fact">🧮 Math: Algebra and geometry form the foundation of science.</div>
-  <div class="fact">🏛️ History: Each civilization leaves a story written in time.</div>
+
+  <div class="fact">
+    <h3>⚛️ Physics: Newton’s Laws</h3>
+    <p>Newton’s First Law states that an object will remain at rest or move at a constant velocity unless acted upon by an external force. This explains why you feel pushed back when a car accelerates suddenly!</p>
+  </div>
+
+  <div class="fact">
+    <h3>🧮 Math: Pythagoras Theorem</h3>
+    <p>In a right-angled triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides: a² + b² = c². This is key in geometry, architecture, and physics.</p>
+  </div>
+
+  <div class="fact">
+    <h3>🏛️ History: Ancient Civilizations</h3>
+    <p>Ancient Egypt, Mesopotamia, and Greece laid the foundations for modern writing, science, and democracy. Their ideas still influence the world today.</p>
+  </div>
+
+  <div class="fact">
+    <h3>⚡ Energy and Motion</h3>
+    <p>Kinetic energy depends on mass and velocity: KE = ½mv². Increasing either mass or speed increases kinetic energy exponentially!</p>
+  </div>
+
+  <div class="fact">
+    <h3>🧠 Math and Logic</h3>
+    <p>Mathematics is not just about numbers — it’s about reasoning. Logic and problem-solving skills developed in math apply to coding, science, and everyday decisions.</p>
+  </div>
 </div>
 
 <script>
@@ -310,6 +350,11 @@ function showResult() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
+
+// expand facts
+document.querySelectorAll(".fact").forEach(fact => {
+  fact.addEventListener("click", () => fact.classList.toggle("expanded"));
+});
 </script>
 </body>
 </html>
