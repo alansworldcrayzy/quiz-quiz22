@@ -190,7 +190,6 @@
     transition: transform 0.5s;
   }
 
-  /* Planet Facts Box */
   #planet-facts {
     position: absolute;
     background: rgba(128,0,128,0.9);
@@ -200,7 +199,7 @@
     text-align: center;
     display: none;
     color: #fff;
-    font-size: 1.1em;
+    font-size: 1.2em;
     z-index: 100;
   }
 
@@ -268,88 +267,130 @@
   <div class="planet" data-name="Mars" data-fact="Mars is known as the Red Planet due to iron oxide on its surface." style="background:#ff5733;">Ma</div>
   <div class="planet" data-name="Jupiter" data-fact="Jupiter is the largest planet and has a giant red storm." style="background:#d4b366;">Ju</div>
   <div class="planet" data-name="Saturn" data-fact="Saturn is famous for its stunning rings." style="background:#f5deb3;">Sa</div>
-  <div class="planet" data-name="Uranus" data-fact="Uranus rotates on its side and has a bluish color." style="background:#7fffd4;">Ur</div>
-  <div class="planet" data-name="Neptune" data-fact="Neptune is a cold, windy planet with a deep blue color." style="background:#4169e1;">Ne</div>
+  <div class="planet" data-name="Uranus" data-fact="Uranus rotates on its side and has a blue-green color." style="background:#7fffd4;">Ur</div>
+  <div class="planet" data-name="Neptune" data-fact="Neptune is a deep blue planet and is very windy." style="background:#4169e1;">Ne</div>
 
-  <div id="planet-facts"><h3></h3><p></p></div>
+  <div id="planet-facts">
+    <h3>Planet</h3>
+    <p>Fact about planet...</p>
+  </div>
 </div>
 
 <script>
-// Quiz logic
 const quizzes = {
   physics: {
-    easy:[
+    easy: [
       {q:"What is gravity measured in?", a:["Newtons","Joules","Watts","Meters"], c:"Newtons"},
       {q:"Who discovered gravity?", a:["Newton","Einstein","Tesla","Curie"], c:"Newton"}
     ]
-  },
-  math: { easy:[{q:"2 + 2 = ?", a:["3","4","5","6"], c:"4"}] },
-  history: { easy:[{q:"Who was the first US President?", a:["Washington","Lincoln","Adams","Jefferson"], c:"Washington"}] }
+  }
 };
 
-let currentQuiz = [], currentQuestion=0, score=0;
-const startBtn=document.getElementById("start"), categorySelect=document.getElementById("category"), difficultySelect=document.getElementById("difficulty");
-const quizContainer=document.getElementById("quiz-container"), questionEl=document.getElementById("question"), choicesEl=document.getElementById("choices");
-const nextBtn=document.getElementById("next"), resultEl=document.getElementById("result"), scoreEl=document.getElementById("score"), restartBtn=document.getElementById("restart");
+let currentQuiz = [];
+let currentQuestion = 0;
+let score = 0;
 
-startBtn.addEventListener("click", ()=>{
-  const category = categorySelect.value, difficulty = difficultySelect.value;
+const startBtn = document.getElementById("start");
+const categorySelect = document.getElementById("category");
+const difficultySelect = document.getElementById("difficulty");
+const quizContainer = document.getElementById("quiz-container");
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const nextBtn = document.getElementById("next");
+const resultEl = document.getElementById("result");
+const scoreEl = document.getElementById("score");
+const restartBtn = document.getElementById("restart");
+
+startBtn.addEventListener("click", () => {
+  const category = categorySelect.value;
+  const difficulty = difficultySelect.value;
   currentQuiz = quizzes[category][difficulty];
-  document.querySelector(".setup").style.display="none"; 
-  quizContainer.style.display="block";
-  currentQuestion=0; score=0; loadQuestion();
+  document.querySelector(".setup").style.display = "none";
+  quizContainer.style.display = "block";
+  currentQuestion = 0;
+  score = 0;
+  loadQuestion();
 });
 
-function loadQuestion(){
-  const current = currentQuiz[currentQuestion]; questionEl.innerText=current.q; choicesEl.innerHTML="";
-  current.a.forEach(choice=>{ const li=document.createElement("li"); li.innerText=choice; li.addEventListener("click", ()=> selectAnswer(li, choice)); choicesEl.appendChild(li); });
+function loadQuestion() {
+  const current = currentQuiz[currentQuestion];
+  questionEl.innerText = current.q;
+  choicesEl.innerHTML = "";
+  current.a.forEach(choice => {
+    const li = document.createElement("li");
+    li.innerText = choice;
+    li.addEventListener("click", () => selectAnswer(li, choice));
+    choicesEl.appendChild(li);
+  });
 }
-function selectAnswer(li, choice){
-  const correct=currentQuiz[currentQuestion].c;
-  if(choice===correct){ li.classList.add("correct"); score++; } 
-  else{ li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c=>{ if(c.innerText===correct)c.classList.add("correct"); }); }
-  document.querySelectorAll("#choices li").forEach(li=>li.style.pointerEvents="none");
+
+function selectAnswer(li, choice) {
+  const correct = currentQuiz[currentQuestion].c;
+  if (choice === correct) { li.classList.add("correct"); score++; }
+  else { li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c => {if (c.innerText === correct) c.classList.add("correct");}); }
+  document.querySelectorAll("#choices li").forEach(li => li.style.pointerEvents="none");
 }
-nextBtn.addEventListener("click", ()=>{
-  currentQuestion++; 
-  if(currentQuestion<currentQuiz.length) loadQuestion();
+
+nextBtn.addEventListener("click", () => {
+  currentQuestion++;
+  if (currentQuestion < currentQuiz.length) loadQuestion();
   else showResult();
 });
-function showResult(){ document.getElementById("quiz").style.display="none"; resultEl.style.display="block"; scoreEl.innerText=`${score} / ${currentQuiz.length}`; }
-restartBtn.addEventListener("click", ()=> location.reload());
-document.querySelectorAll(".fact").forEach(fact=>fact.addEventListener("click", ()=> fact.classList.toggle("expanded")));
 
-// Solar System
-const planets=document.querySelectorAll(".planet"), planetFacts=document.getElementById("planet-facts"), solarSystem=document.getElementById("solar-system");
-let angles = Array.from(planets).map(()=>Math.random()*360);
-const radii = [60,90,120,150,180,210,240,270];
-
-function animateSolarSystem(){
-  planets.forEach((planet,i)=>{
-    if(!planet.classList.contains("focused")){
-      angles[i]+=0.2 + i*0.02;
-      const rad = angles[i]*Math.PI/180;
-      const x = Math.cos(rad)*radii[i], y=Math.sin(rad)*radii[i];
-      planet.style.transform=`translate(${x}px, ${y}px)`;
-    }
-  });
-  requestAnimationFrame(animateSolarSystem);
+function showResult() {
+  document.getElementById("quiz").style.display = "none";
+  resultEl.style.display = "block";
+  scoreEl.innerText = `${score} / ${currentQuiz.length}`;
 }
-animateSolarSystem();
+
+restartBtn.addEventListener("click", () => location.reload());
+
+document.querySelectorAll(".fact").forEach(fact => {
+  fact.addEventListener("click", () => fact.classList.toggle("expanded"));
+});
+
+// Solar System Hyperfocus
+const solarSystem = document.getElementById("solar-system");
+const planets = Array.from(document.querySelectorAll(".planet"));
+const planetFacts = document.getElementById("planet-facts");
 
 planets.forEach((planet,i)=>{
-  planet.addEventListener("click", ()=>{
-    planets.forEach(p=>p.classList.remove("focused"));
+  planet.style.transform = `rotate(${i*45}deg) translate(150px) rotate(-${i*45}deg)`;
+});
+
+planets.forEach((planet,i)=>{
+  planet.addEventListener("click", (e)=>{
+    e.stopPropagation(); // prevent bubbling
+    // Reset all
+    planets.forEach(p=>{
+      p.classList.remove("focused");
+      p.style.transform = `rotate(${i*45}deg) translate(150px) rotate(-${i*45}deg) scale(1)`;
+    });
     planet.classList.add("focused");
-    const rect = planet.getBoundingClientRect(), containerRect = solarSystem.getBoundingClientRect();
-    planetFacts.style.top=(rect.top-containerRect.top-70)+"px";
-    planetFacts.style.left=(rect.left-containerRect.left+rect.width/2-140)+"px";
+
+    // Fact box
+    const rect = planet.getBoundingClientRect(),
+          containerRect = solarSystem.getBoundingClientRect();
+    planetFacts.style.top = (rect.top-containerRect.top-80)+"px";
+    planetFacts.style.left = (rect.left-containerRect.left+rect.width/2-140)+"px";
     planetFacts.querySelector("h3").innerText = planet.dataset.name;
     planetFacts.querySelector("p").innerText = planet.dataset.fact;
     planetFacts.classList.add("show");
-    planet.style.transform+=" scale(2.5)";
+
+    // Slightly enlarge planet
+    planet.style.transform += " scale(1.5)";
   });
 });
+
+// Click outside resets
+document.body.addEventListener("click", ()=>{
+  planets.forEach((p,i)=>{
+    p.classList.remove("focused");
+    p.style.transform = `rotate(${i*45}deg) translate(150px) rotate(-${i*45}deg) scale(1)`;
+  });
+  planetFacts.classList.remove("show");
+});
 </script>
+
 </body>
 </html>
