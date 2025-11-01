@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 400vh;
+    min-height: 280vh;
     overflow-x: hidden;
   }
   h1 {
@@ -128,8 +128,16 @@
     overflow: hidden;
     max-height: 70px;
   }
-  .fact:hover { background: rgba(255,255,255,0.3); transform: scale(1.03); color: #000; }
-  .fact.expanded { max-height: 300px; background: rgba(255,255,255,0.5); color: #000; }
+  .fact:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.03);
+    color: #000;
+  }
+  .fact.expanded {
+    max-height: 300px;
+    background: rgba(255,255,255,0.5);
+    color: #000;
+  }
   .fact h3 { margin: 0; font-size: 1.3em; }
   .fact p { margin-top: 10px; display: none; }
   .fact.expanded p { display: block; }
@@ -143,9 +151,22 @@
     color: #fff;
     margin-top: 80px;
   }
-  .did-you-know h2 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 0 0 12px rgba(255,255,255,0.7); }
-  .did-you-know p { font-size: 1.1em; margin-bottom: 50px; color: rgba(255,255,255,0.8); }
-  .fact-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+  .did-you-know h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px rgba(255,255,255,0.7);
+  }
+  .did-you-know p {
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    color: rgba(255,255,255,0.8);
+  }
+  .fact-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
   .fact-card {
     width: 280px;
     background: rgba(255,255,255,0.1);
@@ -158,7 +179,11 @@
     position: relative;
     overflow: hidden;
   }
-  .fact-card:hover { background: rgba(255,255,255,0.3); color: #000; transform: translateY(-8px) scale(1.05); }
+  .fact-card:hover {
+    background: rgba(255,255,255,0.3);
+    color: #000;
+    transform: translateY(-8px) scale(1.05);
+  }
   .fact-card h3 { margin-bottom: 10px; font-size: 1.3em; }
   .fact-card.physics { border-left: 5px solid #00e5ff; }
   .fact-card.math { border-left: 5px solid #ffeb3b; }
@@ -168,61 +193,58 @@
   #solar-modal {
     display: none;
     position: fixed;
+    z-index: 9999;
     top:0; left:0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    z-index: 1000;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.95);
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   #solar-close {
-    position: absolute; top: 20px; right: 20px;
-    padding: 10px 20px; border:none; border-radius:10px;
-    cursor: pointer; font-size:18px;
-    background:#00bcd4; color:#fff; z-index:1010;
-  }
-  .solar-system { position: relative; width: 600px; height:600px; margin:80px auto; }
-  .sun { width:60px; height:60px; background:yellow; border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
-  .orbit { position:absolute; top:50%; left:50%; border:1px dashed rgba(255,255,255,0.3); border-radius:50%; transform:translate(-50%,-50%); }
-  .planet { width:20px; height:20px; border-radius:50%; position:absolute; top:0; left:50%; transform:translate(-50%,0); cursor:pointer; }
-  .planet.mercury { background:#b2b2b2; }
-  .planet.venus { background:#e0c27b; }
-  .planet.earth { background:#2a70ff; }
-  .planet.mars { background:#ff4500; }
-  .planet.jupiter { background:#d9a066; }
-  .planet.saturn { background:#f5deb3; }
-  .planet.uranus { background:#7fffd4; }
-  .planet.neptune { background:#4169e1; }
-
-  /* Orbit sizes & rotations */
-  .orbit.mercury { width:100px; height:100px; animation: spin 6s linear infinite; }
-  .orbit.venus { width:140px; height:140px; animation: spin 10s linear infinite; }
-  .orbit.earth { width:180px; height:180px; animation: spin 15s linear infinite; }
-  .orbit.mars { width:220px; height:220px; animation: spin 18s linear infinite; }
-  .orbit.jupiter { width:280px; height:280px; animation: spin 20s linear infinite; }
-  .orbit.saturn { width:340px; height:340px; animation: spin 25s linear infinite; }
-  .orbit.uranus { width:400px; height:400px; animation: spin 30s linear infinite; }
-  .orbit.neptune { width:460px; height:460px; animation: spin 35s linear infinite; }
-
-  @keyframes spin { from {transform:translate(-50%,-50%) rotate(0deg);} to {transform:translate(-50%,-50%) rotate(360deg);} }
-
-  /* Hyperfocus */
-  .solar-system.hyperfocus { transition: transform 0.7s ease; }
-  #planet-fact {
-    display:block;
-    opacity:0;
-    color:#fff;
-    background:rgba(0,0,0,0.7);
-    padding:15px;
-    border-radius:10px;
     position:absolute;
-    top:20px;
+    top:20px; right:30px;
+    font-size:2em;
+    color:white;
+    cursor:pointer;
+  }
+  #solar-system {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 40px;
+    flex-wrap: wrap;
+    position: relative;
+    transition: transform 0.7s ease;
+  }
+  .planet {
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:12px;
+    text-align:center;
+    cursor:pointer;
+    transition: transform 0.5s ease, background 0.5s ease;
+    position: relative;
+  }
+  #planet-fact {
+    position:absolute;
+    bottom: 30px;
     left:50%;
     transform:translateX(-50%);
-    max-width:80%;
+    background: rgba(0,0,0,0.7);
+    padding:15px 25px;
+    border-radius:15px;
+    max-width: 90%;
     text-align:center;
-    transition:opacity 0.5s ease;
+    display:none;
   }
-  #planet-fact.show { opacity:1; }
+  #planet-fact.show { display:block; }
 </style>
 </head>
 <body>
@@ -236,11 +258,13 @@
     <option value="math">🧮 Math</option>
     <option value="history">🏛️ History</option>
   </select>
+
   <select id="difficulty">
     <option value="easy">Easy</option>
     <option value="medium">Medium</option>
     <option value="hard">Hard</option>
   </select>
+
   <button id="start">Start Quiz</button>
   <button id="show-solar">🌌 Show Solar System</button>
 </div>
@@ -259,52 +283,72 @@
 
 <div class="footer">
   <h2>Study Down Here 📘</h2>
-  <div class="fact"><h3>⚛️ Physics: Newton’s Laws</h3><p>Newton’s First Law states that an object will remain at rest or move at a constant velocity unless acted upon by an external force.</p></div>
-  <div class="fact"><h3>🧮 Math: Pythagoras Theorem</h3><p>In a right-angled triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.</p></div>
-  <div class="fact"><h3>🏛️ History: Ancient Civilizations</h3><p>Ancient Egypt, Mesopotamia, and Greece laid the foundations for modern writing, science, and democracy.</p></div>
+  <div class="fact">
+    <h3>⚛️ Physics: Newton’s Laws</h3>
+    <p>Newton’s First Law states that an object will remain at rest or move at a constant velocity unless acted upon by an external force.</p>
+  </div>
+  <div class="fact">
+    <h3>🧮 Math: Pythagoras Theorem</h3>
+    <p>In a right-angled triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.</p>
+  </div>
+  <div class="fact">
+    <h3>🏛️ History: Ancient Civilizations</h3>
+    <p>Ancient Egypt, Mesopotamia, and Greece laid the foundations for modern writing, science, and democracy.</p>
+  </div>
 </div>
 
+<!-- Did You Know Section -->
 <div class="did-you-know">
   <h2>💡 Did You Know?</h2>
   <p>Fun and surprising facts from the worlds of Science, Math, and History!</p>
   <div class="fact-cards">
-    <div class="fact-card physics"><h3>⚛️ Physics</h3><p>Light takes only 8 minutes and 20 seconds to travel from the Sun to Earth!</p></div>
-    <div class="fact-card math"><h3>🧮 Math</h3><p>The number "zero" was first used in India around the 5th century AD — it revolutionized mathematics!</p></div>
-    <div class="fact-card history"><h3>🏛️ History</h3><p>The Great Pyramid of Giza was the tallest human-made structure in the world for over 3,800 years.</p></div>
-    <div class="fact-card physics"><h3>🌌 Physics</h3><p>There are more stars in the universe than grains of sand on all of Earth’s beaches combined!</p></div>
-    <div class="fact-card math"><h3>📏 Math</h3><p>The Fibonacci sequence appears in nature — like sunflower spirals and pinecones!</p></div>
-    <div class="fact-card history"><h3>⚔️ History</h3><p>Ancient Romans used crushed bones and oyster shells to make toothpaste!</p></div>
+    <div class="fact-card physics">
+      <h3>⚛️ Physics</h3>
+      <p>Light takes only 8 minutes and 20 seconds to travel from the Sun to Earth!</p>
+    </div>
+    <div class="fact-card math">
+      <h3>🧮 Math</h3>
+      <p>The number "zero" was first used in India around the 5th century AD — it revolutionized mathematics!</p>
+    </div>
+    <div class="fact-card history">
+      <h3>🏛️ History</h3>
+      <p>The Great Pyramid of Giza was the tallest human-made structure in the world for over 3,800 years.</p>
+    </div>
+    <div class="fact-card physics">
+      <h3>🌌 Physics</h3>
+      <p>There are more stars in the universe than grains of sand on all of Earth’s beaches combined!</p>
+    </div>
+    <div class="fact-card math">
+      <h3>📏 Math</h3>
+      <p>The Fibonacci sequence appears in nature — like sunflower spirals and pinecones!</p>
+    </div>
+    <div class="fact-card history">
+      <h3>⚔️ History</h3>
+      <p>Ancient Romans used crushed bones and oyster shells to make toothpaste!</p>
+    </div>
   </div>
 </div>
 
 <!-- Solar System Modal -->
 <div id="solar-modal">
-  <button id="solar-close">Close ✖</button>
-  <div class="solar-system" id="solar-system">
-    <div class="sun"></div>
-    <div class="orbit mercury"><div class="planet mercury" data-fact="Mercury is the smallest planet and closest to the Sun!"></div></div>
-    <div class="orbit venus"><div class="planet venus" data-fact="Venus spins backwards compared to most planets."></div></div>
-    <div class="orbit earth"><div class="planet earth" data-fact="Earth is the only planet known to support life."></div></div>
-    <div class="orbit mars"><div class="planet mars" data-fact="Mars is known as the Red Planet due to iron oxide on its surface."></div></div>
-    <div class="orbit jupiter"><div class="planet jupiter" data-fact="Jupiter is the largest planet in the Solar System."></div></div>
-    <div class="orbit saturn"><div class="planet saturn" data-fact="Saturn has the most spectacular rings in the Solar System."></div></div>
-    <div class="orbit uranus"><div class="planet uranus" data-fact="Uranus rotates on its side, making its seasons extreme."></div></div>
-    <div class="orbit neptune"><div class="planet neptune" data-fact="Neptune has the strongest winds of any planet in the Solar System."></div></div>
+  <span id="solar-close">×</span>
+  <div id="solar-system">
+    <div class="planet" style="background:#FFA500;" data-fact="The Sun is the center of our solar system.">☀️ Sun</div>
+    <div class="planet" style="background:#b0b0b0;" data-fact="Mercury is the closest planet to the Sun.">☿ Mercury</div>
+    <div class="planet" style="background:#ff6347;" data-fact="Venus is the hottest planet in our solar system.">♀ Venus</div>
+    <div class="planet" style="background:#1E90FF;" data-fact="Earth is the only planet known to support life.">🌍 Earth</div>
+    <div class="planet" style="background:#ff4500;" data-fact="Mars is known as the Red Planet.">♂ Mars</div>
+    <div class="planet" style="background:#FFD700;" data-fact="Jupiter is the largest planet in our solar system.">♃ Jupiter</div>
+    <div class="planet" style="background:#DAA520;" data-fact="Saturn is famous for its rings.">♄ Saturn</div>
+    <div class="planet" style="background:#40E0D0;" data-fact="Uranus rotates on its side.">♅ Uranus</div>
+    <div class="planet" style="background:#0000CD;" data-fact="Neptune is the windiest planet in the solar system.">♆ Neptune</div>
   </div>
   <div id="planet-fact"></div>
 </div>
 
 <script>
-// Quiz logic
 const quizzes = {
-  physics: {
-    easy: [
-      {q:"What is gravity measured in?", a:["Newtons","Joules","Watts","Meters"], c:"Newtons"},
-      {q:"Who discovered gravity?", a:["Newton","Einstein","Tesla","Curie"], c:"Newton"},
-      {q:"What is the unit of force?", a:["Joule","Pascal","Newton","Watt"], c:"Newton"},
-      {q:"Which of these is a simple machine?", a:["Lever","Engine","Light bulb","Computer"], c:"Lever"}
-    ]
-  }
+  physics: { easy:[{q:"What is gravity measured in?",a:["Newtons","Joules","Watts","Meters"],c:"Newtons"}] }
 };
 
 let currentQuiz = [];
@@ -347,25 +391,26 @@ function loadQuestion() {
 
 function selectAnswer(li, choice) {
   const correct = currentQuiz[currentQuestion].c;
-  if (choice === correct) { li.classList.add("correct"); score++; }
-  else { li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c => {if (c.innerText === correct) c.classList.add("correct");}); }
-  document.querySelectorAll("#choices li").forEach(li => li.style.pointerEvents="none");
+  if(choice === correct){li.classList.add("correct");score++;}
+  else{li.classList.add("wrong");Array.from(choicesEl.children).forEach(c=>{if(c.innerText===correct)c.classList.add("correct");});}
+  document.querySelectorAll("#choices li").forEach(li=>li.style.pointerEvents="none");
 }
 
-nextBtn.addEventListener("click", () => {
+nextBtn.addEventListener("click", ()=>{
   currentQuestion++;
-  if (currentQuestion < currentQuiz.length) loadQuestion();
+  if(currentQuestion<currentQuiz.length) loadQuestion();
   else showResult();
 });
 
-function showResult() {
-  document.getElementById("quiz").style.display = "none";
-  resultEl.style.display = "block";
-  scoreEl.innerText = `${score} / ${currentQuiz.length}`;
+function showResult(){
+  document.getElementById("quiz").style.display="none";
+  resultEl.style.display="block";
+  scoreEl.innerText=`${score} / ${currentQuiz.length}`;
 }
 
-restartBtn.addEventListener("click", () => location.reload());
-document.querySelectorAll(".fact").forEach(fact => { fact.addEventListener("click", () => fact.classList.toggle("expanded")); });
+restartBtn.addEventListener("click", ()=>location.reload());
+
+document.querySelectorAll(".fact").forEach(fact=>{fact.addEventListener("click",()=>fact.classList.toggle("expanded"));});
 
 // Solar System logic
 const solarModal = document.getElementById('solar-modal');
@@ -374,25 +419,30 @@ const solarClose = document.getElementById('solar-close');
 const showSolarBtn = document.getElementById('show-solar');
 const planetFact = document.getElementById('planet-fact');
 
-showSolarBtn.addEventListener('click', () => { solarModal.style.display='block'; });
-
-solarClose.addEventListener('click', () => {
-  solarModal.style.display='none';
-  solarSystem.style.transform='scale(1)';
+showSolarBtn.addEventListener('click',()=>{
+  solarModal.style.display='flex';
+  solarSystem.style.transform='scale(1) translate(0,0)';
   planetFact.classList.remove('show');
 });
 
-document.querySelectorAll('.planet').forEach(planet => {
-  planet.addEventListener('click', () => {
+solarClose.addEventListener('click',()=>{
+  solarModal.style.display='none';
+  solarSystem.style.transform='scale(1) translate(0,0)';
+  planetFact.classList.remove('show');
+});
+
+document.querySelectorAll('.planet').forEach(planet=>{
+  planet.addEventListener('click',()=>{
     const fact = planet.getAttribute('data-fact');
-    planetFact.innerText = fact;
+    planetFact.innerText=fact;
     planetFact.classList.add('show');
 
-    const rect = planet.getBoundingClientRect();
-    const centerX = window.innerWidth/2 - rect.left - rect.width/2;
-    const centerY = window.innerHeight/2 - rect.top - rect.height/2;
-    solarSystem.style.transform = `scale(2) translate(${centerX}px, ${centerY}px)`;
-    solarSystem.classList.add('hyperfocus');
+    const planetRect = planet.getBoundingClientRect();
+    const modalRect = solarModal.getBoundingClientRect();
+    const centerX = modalRect.width/2 - (planetRect.left - modalRect.left + planetRect.width/2);
+    const centerY = modalRect.height/2 - (planetRect.top - modalRect.top + planetRect.height/2);
+
+    solarSystem.style.transform=`scale(2) translate(${centerX}px, ${centerY}px)`;
   });
 });
 </script>
