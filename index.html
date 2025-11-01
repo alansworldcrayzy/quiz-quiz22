@@ -18,7 +18,12 @@
     overflow-x: hidden;
   }
 
-  h1 { text-align: center; margin-top: 50px; font-size: 2.5em; text-shadow: 0 0 10px rgba(255,255,255,0.6); }
+  h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  }
 
   .setup {
     background: rgba(255,255,255,0.1);
@@ -39,10 +44,27 @@
     outline: none;
   }
 
-  .setup select { background: rgba(255,255,255,0.2); color: #fff; }
-  .setup select:hover { background: rgba(255,255,255,0.4); color: #000; }
-  .setup button { background: #00bcd4; color: #fff; font-weight: bold; transition: 0.3s; }
-  .setup button:hover { background: #03a9f4; box-shadow: 0 0 15px rgba(3,169,244,0.7); }
+  .setup select {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+
+  .setup select:hover {
+    background: rgba(255,255,255,0.4);
+    color: #000;
+  }
+
+  .setup button {
+    background: #00bcd4;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .setup button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 15px rgba(3,169,244,0.7);
+  }
 
   .container {
     display: none;
@@ -57,7 +79,12 @@
     transition: 0.3s;
   }
 
-  #question { font-size: 1.4em; margin-bottom: 20px; font-weight: bold; }
+  #question {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
   ul { list-style: none; padding: 0; }
 
   li {
@@ -88,7 +115,10 @@
     transition: all 0.3s ease;
   }
 
-  button:hover { background: #03a9f4; box-shadow: 0 0 20px rgba(3,169,244,0.7); }
+  button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 20px rgba(3,169,244,0.7);
+  }
 
   #result { text-align: center; display: none; }
 
@@ -116,13 +146,23 @@
     max-height: 70px;
   }
 
-  .fact:hover { background: rgba(255,255,255,0.3); transform: scale(1.03); color: #000; }
-  .fact.expanded { max-height: 300px; background: rgba(255,255,255,0.5); color: #000; }
+  .fact:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.03);
+    color: #000;
+  }
+
+  .fact.expanded {
+    max-height: 300px;
+    background: rgba(255,255,255,0.5);
+    color: #000;
+  }
+
   .fact h3 { margin: 0; font-size: 1.3em; }
   .fact p { margin-top: 10px; display: none; }
   .fact.expanded p { display: block; }
 
-  /* Did You Know Section */
+  /* Did You Know section */
   .did-you-know {
     width: 100%;
     padding: 70px 20px;
@@ -144,7 +184,12 @@
     color: rgba(255,255,255,0.8);
   }
 
-  .fact-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+  .fact-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
 
   .fact-card {
     width: 280px;
@@ -159,13 +204,55 @@
     overflow: hidden;
   }
 
-  .fact-card:hover { background: rgba(255,255,255,0.3); color: #000; transform: translateY(-8px) scale(1.05); }
-  .fact-card h3 { margin-bottom: 10px; font-size: 1.3em; }
+  .fact-card:hover {
+    background: rgba(255,255,255,0.3);
+    color: #000;
+    transform: translateY(-8px) scale(1.05);
+  }
+
+  .fact-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+  }
+
   .fact-card.physics { border-left: 5px solid #00e5ff; }
   .fact-card.math { border-left: 5px solid #ffeb3b; }
   .fact-card.history { border-left: 5px solid #ff9800; }
 
-  /* Solar System Styles */
+  /* Solar System Modal */
+  #solar-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.5s ease;
+  }
+
+  #solar-modal.show {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  #solar-close {
+    position: absolute;
+    top: 20px; right: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ff5722;
+    color: #fff;
+  }
+
   .solar-system {
     position: relative;
     width: 600px;
@@ -195,7 +282,6 @@
   .orbit .planet {
     width: 20px;
     height: 20px;
-    background: #03a9f4;
     border-radius: 50%;
     position: absolute;
     top: -10px;
@@ -203,6 +289,15 @@
     transform: translateX(-50%);
   }
 
+  /* Planet colors */
+  .planet.mercury { background: #b0b0b0; }
+  .planet.venus { background: #e5c07b; }
+  .planet.earth { background: #2a7fff; }
+  .planet.mars { background: #c1440e; }
+  .planet.jupiter { background: #d9a066; }
+  .planet.saturn { background: #f5deb3; }
+
+  /* Orbit sizes and speed */
   .mercury { width: 100px; height: 100px; animation-duration: 4s; }
   .venus   { width: 150px; height: 150px; animation-duration: 7s; }
   .earth   { width: 200px; height: 200px; animation-duration: 10s; }
@@ -211,31 +306,6 @@
   .saturn  { width: 400px; height: 400px; animation-duration: 25s; }
 
   @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-  #solar-modal {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.95);
-    z-index:1000;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-  }
-
-  #solar-close {
-    position:absolute;
-    top:20px; right:30px;
-    padding:10px 20px;
-    font-size:16px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:#ff5722;
-    color:#fff;
-  }
-
 </style>
 </head>
 <body>
@@ -273,6 +343,7 @@
 
 <div class="footer">
   <h2>Study Down Here 📘</h2>
+
   <div class="fact">
     <h3>⚛️ Physics: Newton’s Laws</h3>
     <p>Newton’s First Law states that an object will remain at rest or move at a constant velocity unless acted upon by an external force.</p>
@@ -289,10 +360,11 @@
   </div>
 </div>
 
-<!-- Did You Know Section -->
+<!-- 💡 Did You Know Section -->
 <div class="did-you-know">
   <h2>💡 Did You Know?</h2>
-  <p>Fun and surprising facts from Science, Math, and History!</p>
+  <p>Fun and surprising facts from the worlds of Science, Math, and History!</p>
+
   <div class="fact-cards">
     <div class="fact-card physics">
       <h3>⚛️ Physics</h3>
@@ -319,12 +391,12 @@
   <button id="solar-close">Close ✖</button>
   <div class="solar-system">
     <div class="sun"></div>
-    <div class="orbit mercury"><div class="planet"></div></div>
-    <div class="orbit venus"><div class="planet"></div></div>
-    <div class="orbit earth"><div class="planet"></div></div>
-    <div class="orbit mars"><div class="planet"></div></div>
-    <div class="orbit jupiter"><div class="planet"></div></div>
-    <div class="orbit saturn"><div class="planet"></div></div>
+    <div class="orbit mercury"><div class="planet mercury"></div></div>
+    <div class="orbit venus"><div class="planet venus"></div></div>
+    <div class="orbit earth"><div class="planet earth"></div></div>
+    <div class="orbit mars"><div class="planet mars"></div></div>
+    <div class="orbit jupiter"><div class="planet jupiter"></div></div>
+    <div class="orbit saturn"><div class="planet saturn"></div></div>
   </div>
 </div>
 
@@ -332,10 +404,7 @@
 const quizzes = {
   physics: {
     easy: [
-      {q:"What is gravity measured in?", a:["Newtons","Joules","Watts","Meters"], c:"Newtons"},
-      {q:"Who discovered gravity?", a:["Newton","Einstein","Tesla","Curie"], c:"Newton"},
-      {q:"What is the unit of force?", a:["Joule","Pascal","Newton","Watt"], c:"Newton"},
-      {q:"Which of these is a simple machine?", a:["Lever","Engine","Light bulb","Computer"], c:"Lever"}
+      {q:"What is gravity measured in?", a:["Newtons","Joules","Watts","Meters"], c:"Newtons"}
     ]
   }
 };
@@ -404,13 +473,20 @@ document.querySelectorAll(".fact").forEach(fact => {
   fact.addEventListener("click", () => fact.classList.toggle("expanded"));
 });
 
-// Solar System Button Logic
+// Solar System Button Logic with transition
 const solarBtn = document.getElementById('solar-btn');
 const solarModal = document.getElementById('solar-modal');
 const solarClose = document.getElementById('solar-close');
 
-solarBtn.addEventListener('click', () => solarModal.style.display = 'flex');
-solarClose.addEventListener('click', () => solarModal.style.display = 'none');
+solarBtn.addEventListener('click', () => {
+  solarModal.style.display = 'flex';
+  setTimeout(() => solarModal.classList.add('show'), 10);
+});
+
+solarClose.addEventListener('click', () => {
+  solarModal.classList.remove('show');
+  setTimeout(() => { solarModal.style.display = 'none'; }, 500);
+});
 </script>
 </body>
 </html>
