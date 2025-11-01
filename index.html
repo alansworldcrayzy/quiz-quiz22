@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Quiz with Google Maps Logo</title>
+<title>Physics Quiz</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(120deg, #89f7fe, #66a6ff); /* light blue gradient */
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #333;
+    color: #fff;
   }
 
   .container {
-    background: #ffffff; /* white quiz box */
+    background: linear-gradient(145deg, #6a0dad, #9b30ff); /* purple gradient */
     border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     width: 750px;
     max-width: 95%;
     padding: 30px;
@@ -36,13 +36,14 @@
   h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #fff;
   }
 
   #question {
     font-size: 1.4em;
     margin-bottom: 20px;
     font-weight: bold;
+    color: #fff;
   }
 
   ul {
@@ -51,7 +52,7 @@
   }
 
   li {
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(255,255,255,0.15);
     margin: 12px 0;
     padding: 15px;
     cursor: pointer;
@@ -59,10 +60,11 @@
     font-size: 1.1em;
     transition: all 0.3s ease;
     text-align: center;
+    color: #fff;
   }
 
   li:hover {
-    background: #d0f0fd;
+    background: rgba(255,255,255,0.4);
     transform: scale(1.05);
     color: #000;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
@@ -114,7 +116,7 @@
 
   .progress-container {
     width: 30px;
-    background: rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.15);
     border-radius: 15px;
     margin-bottom: 20px;
     position: relative;
@@ -142,7 +144,7 @@
 <body>
 <div class="container">
   <div class="quiz-content">
-    <h1>Interactive Quiz</h1>
+    <h1>Physics Quiz</h1>
     <div id="quiz">
       <div id="question"></div>
       <ul id="choices"></ul>
@@ -158,8 +160,8 @@
     <div class="progress-container">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
-    <!-- Google Maps logo button -->
-    <img id="maps" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Google_Maps_Logo.png" alt="Google Maps" width="80">
+    <!-- Google Maps / Map logo -->
+    <img id="maps" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Map_icon.svg" alt="Map" width="80">
     <button id="info">Quiz Info</button>
     <button id="help">Help</button>
   </div>
@@ -167,11 +169,13 @@
 
 <script>
 const quizData = [
-  {question:"What is the capital of France?", choices:["Paris","London","Berlin","Madrid"], answer:"Paris"},
-  {question:"Which planet is known as the Red Planet?", choices:["Earth","Mars","Jupiter","Venus"], answer:"Mars"},
-  {question:"Who wrote 'Romeo and Juliet'?", choices:["William Wordsworth","William Shakespeare","John Keats","Leo Tolstoy"], answer:"William Shakespeare"},
-  {question:"What is the largest ocean on Earth?", choices:["Atlantic","Indian","Arctic","Pacific"], answer:"Pacific"},
-  {question:"Which language runs in a web browser?", choices:["Java","C","Python","JavaScript"], answer:"JavaScript"}
+  {question:"What is the speed of light in vacuum?", choices:["3 x 10^8 m/s","1.5 x 10^8 m/s","3 x 10^6 m/s","1 x 10^7 m/s"], answer:"3 x 10^8 m/s"},
+  {question:"Who formulated the laws of motion?", choices:["Newton","Einstein","Galileo","Tesla"], answer:"Newton"},
+  {question:"What is the unit of electric current?", choices:["Volt","Ampere","Ohm","Coulomb"], answer:"Ampere"},
+  {question:"What force keeps planets in orbit around the sun?", choices:["Magnetic force","Friction","Gravitational force","Tension"], answer:"Gravitational force"},
+  {question:"What is the acceleration due to gravity on Earth?", choices:["9.8 m/s²","10 m/s²","8 m/s²","12 m/s²"], answer:"9.8 m/s²"},
+  {question:"Which particle has a negative charge?", choices:["Proton","Neutron","Electron","Photon"], answer:"Electron"},
+  {question:"Who developed the theory of relativity?", choices:["Newton","Einstein","Bohr","Faraday"], answer:"Einstein"}
 ];
 
 let currentQuestion = 0;
@@ -228,18 +232,15 @@ function restartQuiz(){ currentQuestion=0; score=0; resultEl.classList.add("hidd
 function updateProgress(){ progressBar.style.height = `${(currentQuestion/quizData.length)*100}%`; }
 
 function openGoogleMaps(){ window.open("https://www.google.com/maps", "_blank"); }
+function showInfo(){ alert('This quiz contains physics questions. Select the correct answer and click Next.'); }
+function showHelp(){ alert('Need help? Read the questions carefully!'); }
 
-function showInfo(){ alert('This quiz has 5 questions. Select the correct answer and click Next.'); }
-function showHelp(){ alert('Need help? Read the instructions carefully!'); }
-
-// Event listeners
 nextBtn.addEventListener("click", nextQuestion);
 restartBtn.addEventListener("click", restartQuiz);
 mapsBtn.addEventListener("click", openGoogleMaps);
 infoBtn.addEventListener("click", showInfo);
 helpBtn.addEventListener("click", showHelp);
 
-// Initial load
 loadQuestion();
 </script>
 </body>
