@@ -18,28 +18,6 @@
     overflow-x: hidden;
   }
 
-  /* Floating particles background */
-  #particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    overflow: hidden;
-  }
-
-  .particle {
-    position: absolute;
-    background: rgba(255,255,255,0.4);
-    border-radius: 50%;
-    animation: float 10s linear infinite;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0) scale(1); opacity: 0.8; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-  }
-
   h1 {
     text-align: center;
     margin-top: 50px;
@@ -54,7 +32,6 @@
     box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     margin-top: 30px;
     text-align: center;
-    z-index: 1;
   }
 
   .setup select, .setup button {
@@ -100,7 +77,6 @@
     color: #fff;
     margin-top: 80px;
     transition: 0.3s;
-    z-index: 1;
   }
 
   #question {
@@ -154,7 +130,6 @@
     background: rgba(0,0,0,0.25);
     width: 100%;
     border-top: 2px solid rgba(255,255,255,0.3);
-    z-index: 1;
   }
 
   .fact {
@@ -186,12 +161,66 @@
   .fact h3 { margin: 0; font-size: 1.3em; }
   .fact p { margin-top: 10px; display: none; }
   .fact.expanded p { display: block; }
+
+  /* Did You Know section */
+  .did-you-know {
+    width: 100%;
+    padding: 70px 20px;
+    background: linear-gradient(180deg, #4a00e0, #1a1a40);
+    text-align: center;
+    color: #fff;
+    margin-top: 80px;
+  }
+
+  .did-you-know h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px rgba(255,255,255,0.7);
+  }
+
+  .did-you-know p {
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .fact-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .fact-card {
+    width: 280px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    text-align: left;
+    line-height: 1.4em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fact-card:hover {
+    background: rgba(255,255,255,0.3);
+    color: #000;
+    transform: translateY(-8px) scale(1.05);
+  }
+
+  .fact-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+  }
+
+  .fact-card.physics { border-left: 5px solid #00e5ff; }
+  .fact-card.math { border-left: 5px solid #ffeb3b; }
+  .fact-card.history { border-left: 5px solid #ff9800; }
 </style>
 </head>
 <body>
-
-<!-- Background particles -->
-<div id="particles"></div>
 
 <h1>Smart Quiz Portal</h1>
 
@@ -234,22 +263,50 @@
 
   <div class="fact">
     <h3>🧮 Math: Pythagoras Theorem</h3>
-    <p>In a right-angled triangle, the square of the hypotenuse equals the sum of the squares of the other two sides: a² + b² = c².</p>
+    <p>In a right-angled triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.</p>
   </div>
 
   <div class="fact">
     <h3>🏛️ History: Ancient Civilizations</h3>
     <p>Ancient Egypt, Mesopotamia, and Greece laid the foundations for modern writing, science, and democracy.</p>
   </div>
+</div>
 
-  <div class="fact">
-    <h3>⚡ Energy and Motion</h3>
-    <p>Kinetic energy depends on mass and velocity: KE = ½mv². Increasing either mass or speed increases kinetic energy exponentially!</p>
-  </div>
+<!-- 💡 Did You Know Section -->
+<div class="did-you-know">
+  <h2>💡 Did You Know?</h2>
+  <p>Fun and surprising facts from the worlds of Science, Math, and History!</p>
 
-  <div class="fact">
-    <h3>🧠 Math and Logic</h3>
-    <p>Mathematics develops reasoning and logic — skills vital in coding, science, and everyday life decisions.</p>
+  <div class="fact-cards">
+    <div class="fact-card physics">
+      <h3>⚛️ Physics</h3>
+      <p>Light takes only 8 minutes and 20 seconds to travel from the Sun to Earth!</p>
+    </div>
+
+    <div class="fact-card math">
+      <h3>🧮 Math</h3>
+      <p>The number "zero" was first used in India around the 5th century AD — it revolutionized mathematics!</p>
+    </div>
+
+    <div class="fact-card history">
+      <h3>🏛️ History</h3>
+      <p>The Great Pyramid of Giza was the tallest human-made structure in the world for over 3,800 years.</p>
+    </div>
+
+    <div class="fact-card physics">
+      <h3>🌌 Physics</h3>
+      <p>There are more stars in the universe than grains of sand on all of Earth’s beaches combined!</p>
+    </div>
+
+    <div class="fact-card math">
+      <h3>📏 Math</h3>
+      <p>The Fibonacci sequence appears in nature — like sunflower spirals and pinecones!</p>
+    </div>
+
+    <div class="fact-card history">
+      <h3>⚔️ History</h3>
+      <p>Ancient Romans used crushed bones and oyster shells to make toothpaste!</p>
+    </div>
   </div>
 </div>
 
@@ -263,10 +320,8 @@ const quizzes = {
       {q:"Which of these is a simple machine?", a:["Lever","Engine","Light bulb","Computer"], c:"Lever"}
     ]
   }
-  // rest of your quiz data (math, history, etc.) remains unchanged
 };
 
-// quiz functionality
 let currentQuiz = [];
 let currentQuestion = 0;
 let score = 0;
@@ -326,24 +381,9 @@ function showResult() {
 
 restartBtn.addEventListener("click", () => location.reload());
 
-// expand facts
 document.querySelectorAll(".fact").forEach(fact => {
   fact.addEventListener("click", () => fact.classList.toggle("expanded"));
 });
-
-// floating particles
-const particlesContainer = document.getElementById("particles");
-for (let i = 0; i < 60; i++) {
-  const particle = document.createElement("div");
-  particle.classList.add("particle");
-  const size = Math.random() * 6 + 2;
-  particle.style.width = `${size}px`;
-  particle.style.height = `${size}px`;
-  particle.style.left = `${Math.random() * 100}%`;
-  particle.style.animationDuration = `${8 + Math.random() * 10}s`;
-  particle.style.animationDelay = `${Math.random() * 10}s`;
-  particlesContainer.appendChild(particle);
-}
 </script>
 </body>
 </html>
