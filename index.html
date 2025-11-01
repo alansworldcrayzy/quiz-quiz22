@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 320vh;
+    min-height: 280vh;
     overflow-x: hidden;
   }
 
@@ -210,30 +210,14 @@
     transform: translateY(-8px) scale(1.05);
   }
 
-  .fact-card h3 { margin-bottom: 10px; font-size: 1.3em; }
+  .fact-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+  }
 
   .fact-card.physics { border-left: 5px solid #00e5ff; }
   .fact-card.math { border-left: 5px solid #ffeb3b; }
   .fact-card.history { border-left: 5px solid #ff9800; }
-
-  /* Mini-game: Quick Math Challenge */
-  .mini-game {
-    width: 100%;
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 30px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 25px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-  }
-
-  .mini-game h2 { margin-bottom: 15px; font-size: 1.8em; }
-  .mini-game input { padding: 12px; border-radius: 12px; border: none; width: 60%; margin-bottom: 15px; font-size: 16px; outline: none; }
-  .mini-game button { padding: 12px 20px; margin: 5px; font-size: 16px; border-radius: 12px; border: none; cursor: pointer; background: #00bcd4; color: #fff; transition: 0.3s; }
-  .mini-game button:hover { background: #03a9f4; box-shadow: 0 0 15px rgba(3,169,244,0.7); }
-  #math-message { margin-top: 15px; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -279,7 +263,7 @@
 
   <div class="fact">
     <h3>🧮 Math: Pythagoras Theorem</h3>
-    <p>In a right-angled triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides: a² + b² = c².</p>
+    <p>In a right-angled triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.</p>
   </div>
 
   <div class="fact">
@@ -288,16 +272,42 @@
   </div>
 </div>
 
-<!-- Mini-game: Quick Math Challenge -->
-<div class="mini-game">
-  <h2>🧮 Mini Game: Quick Math Challenge!</h2>
-  <p>Solve the math problem below:</p>
-  <div id="math-problem"></div>
-  <input type="number" id="math-answer" placeholder="Enter your answer">
-  <button id="math-submit">Check Answer</button>
-  <p id="math-message"></p>
-  <p>Score: <span id="math-score">0</span></p>
-  <button id="math-reset" style="display:none;">Play Again</button>
+<!-- 💡 Did You Know Section -->
+<div class="did-you-know">
+  <h2>💡 Did You Know?</h2>
+  <p>Fun and surprising facts from the worlds of Science, Math, and History!</p>
+
+  <div class="fact-cards">
+    <div class="fact-card physics">
+      <h3>⚛️ Physics</h3>
+      <p>Light takes only 8 minutes and 20 seconds to travel from the Sun to Earth!</p>
+    </div>
+
+    <div class="fact-card math">
+      <h3>🧮 Math</h3>
+      <p>The number "zero" was first used in India around the 5th century AD — it revolutionized mathematics!</p>
+    </div>
+
+    <div class="fact-card history">
+      <h3>🏛️ History</h3>
+      <p>The Great Pyramid of Giza was the tallest human-made structure in the world for over 3,800 years.</p>
+    </div>
+
+    <div class="fact-card physics">
+      <h3>🌌 Physics</h3>
+      <p>There are more stars in the universe than grains of sand on all of Earth’s beaches combined!</p>
+    </div>
+
+    <div class="fact-card math">
+      <h3>📏 Math</h3>
+      <p>The Fibonacci sequence appears in nature — like sunflower spirals and pinecones!</p>
+    </div>
+
+    <div class="fact-card history">
+      <h3>⚔️ History</h3>
+      <p>Ancient Romans used crushed bones and oyster shells to make toothpaste!</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -308,52 +318,6 @@ const quizzes = {
       {q:"Who discovered gravity?", a:["Newton","Einstein","Tesla","Curie"], c:"Newton"},
       {q:"What is the unit of force?", a:["Joule","Pascal","Newton","Watt"], c:"Newton"},
       {q:"Which of these is a simple machine?", a:["Lever","Engine","Light bulb","Computer"], c:"Lever"}
-    ],
-    medium: [
-      {q:"What is the speed of light?", a:["3x10^8 m/s","2x10^6 m/s","1x10^7 m/s","5x10^8 m/s"], c:"3x10^8 m/s"},
-      {q:"Who discovered the law of electromagnetic induction?", a:["Faraday","Newton","Tesla","Bohr"], c:"Faraday"},
-      {q:"What type of energy does a moving object have?", a:["Kinetic","Potential","Thermal","Nuclear"], c:"Kinetic"}
-    ],
-    hard: [
-      {q:"Einstein’s theory of relativity is about?", a:["Space & Time","Sound","Light Speed Only","Atoms"], c:"Space & Time"},
-      {q:"What is Planck’s constant?", a:["6.63×10⁻³⁴ Js","9.8 m/s²","3×10⁸ m/s","1.6×10⁻¹⁹ C"], c:"6.63×10⁻³⁴ Js"},
-      {q:"Which law relates pressure and volume of a gas?", a:["Boyle’s Law","Ohm’s Law","Hooke’s Law","Newton’s Law"], c:"Boyle’s Law"}
-    ]
-  },
-  math: {
-    easy: [
-      {q:"2 + 2 = ?", a:["3","4","5","6"], c:"4"},
-      {q:"10 ÷ 2 = ?", a:["2","4","5","10"], c:"5"},
-      {q:"What is 3 x 3?", a:["6","9","12","3"], c:"9"},
-      {q:"What is 100 - 75?", a:["15","20","25","30"], c:"25"}
-    ],
-    medium: [
-      {q:"√81 = ?", a:["7","8","9","10"], c:"9"},
-      {q:"What is 12²?", a:["124","144","122","100"], c:"144"},
-      {q:"Solve: 5x = 20 → x=?", a:["2","3","4","5"], c:"4"}
-    ],
-    hard: [
-      {q:"Derivative of x²?", a:["2x","x","x²","x³"], c:"2x"},
-      {q:"Integral of 1/x dx?", a:["ln|x| + C","x²/2","1/x²","C/x"], c:"ln|x| + C"},
-      {q:"Limit of (sin x)/x as x→0?", a:["0","1","∞","Undefined"], c:"1"}
-    ]
-  },
-  history: {
-    easy: [
-      {q:"Who was the first U.S. President?", a:["Washington","Lincoln","Adams","Jefferson"], c:"Washington"},
-      {q:"The Great Wall is in which country?", a:["India","China","Japan","Korea"], c:"China"},
-      {q:"In which continent is Egypt?", a:["Asia","Europe","Africa","South America"], c:"Africa"},
-      {q:"What did the Romans build for transportation?", a:["Ships","Roads","Planes","Trains"], c:"Roads"}
-    ],
-    medium: [
-      {q:"World War II ended in?", a:["1940","1943","1945","1950"], c:"1945"},
-      {q:"Who was the first man on the moon?", a:["Yuri Gagarin","Neil Armstrong","Buzz Aldrin","John Glenn"], c:"Neil Armstrong"},
-      {q:"When was the Declaration of Independence signed?", a:["1776","1800","1492","1914"], c:"1776"}
-    ],
-    hard: [
-      {q:"The Roman Empire fell in which century?", a:["3rd","5th","7th","9th"], c:"5th"},
-      {q:"Who was known as the Iron Lady?", a:["Margaret Thatcher","Indira Gandhi","Angela Merkel","Golda Meir"], c:"Margaret Thatcher"},
-      {q:"The Cold War was between?", a:["USA & USSR","China & Japan","France & Germany","India & Pakistan"], c:"USA & USSR"}
     ]
   }
 };
@@ -417,49 +381,9 @@ function showResult() {
 
 restartBtn.addEventListener("click", () => location.reload());
 
-// expand facts
 document.querySelectorAll(".fact").forEach(fact => {
   fact.addEventListener("click", () => fact.classList.toggle("expanded"));
 });
-
-// Quick Math Challenge Mini-Game
-let mathScore = 0;
-let num1, num2, operator;
-
-function generateProblem() {
-  num1 = Math.floor(Math.random() * 20) + 1;
-  num2 = Math.floor(Math.random() * 20) + 1;
-  const operators = ['+', '-', '×'];
-  operator = operators[Math.floor(Math.random() * operators.length)];
-  document.getElementById("math-problem").innerText = `${num1} ${operator} ${num2} = ?`;
-  document.getElementById("math-answer").value = "";
-  document.getElementById("math-message").innerText = "";
-}
-
-document.getElementById("math-submit").addEventListener("click", () => {
-  const answer = Number(document.getElementById("math-answer").value);
-  let correctAnswer;
-  if (operator === '+') correctAnswer = num1 + num2;
-  else if (operator === '-') correctAnswer = num1 - num2;
-  else correctAnswer = num1 * num2;
-
-  if (answer === correctAnswer) {
-    mathScore++;
-    document.getElementById("math-message").innerText = "✅ Correct!";
-  } else {
-    document.getElementById("math-message").innerText = `❌ Wrong! Correct answer: ${correctAnswer}`;
-  }
-  document.getElementById("math-score").innerText = mathScore;
-  generateProblem();
-});
-
-document.getElementById("math-reset").addEventListener("click", () => {
-  mathScore = 0;
-  document.getElementById("math-score").innerText = mathScore;
-  generateProblem();
-});
-
-generateProblem();
 </script>
 </body>
 </html>
