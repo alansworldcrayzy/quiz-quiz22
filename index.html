@@ -1,255 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ultimate Quiz Portal</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Quiz Portal</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 280vh;
+  }
 
-    body {
-      min-height: 200vh;
-      background: radial-gradient(circle at top, #6a11cb, #2575fc);
-      overflow-x: hidden;
-      color: white;
-    }
+  h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  }
 
-    /* Particle canvas behind everything */
-    #particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      background: transparent;
-    }
+  .setup {
+    background: rgba(255,255,255,0.1);
+    padding: 20px 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    margin-top: 30px;
+    text-align: center;
+  }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin-top: 10vh;
-    }
+  .setup select, .setup button {
+    padding: 12px 15px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+  }
 
-    .quiz-box {
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
-      width: 80%;
-      max-width: 600px;
-      transition: 0.3s;
-    }
-    .quiz-box:hover {
-      transform: scale(1.03);
-    }
+  .setup select {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
 
-    h1 {
-      margin-bottom: 20px;
-    }
+  .setup select:hover {
+    background: rgba(255,255,255,0.4);
+    color: #000;
+  }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      background: #00bcd4;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #03a9f4;
-      box-shadow: 0 0 10px rgba(3,169,244,0.6);
-    }
+  .setup button {
+    background: #00bcd4;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+  }
 
-    /* Google Maps button as logo */
-    .maps-button {
-      position: fixed;
-      right: 20px;
-      top: 20px;
-      z-index: 3;
-    }
-    .maps-button img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-    .maps-button img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(255,255,255,0.8);
-    }
+  .setup button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 15px rgba(3,169,244,0.7);
+  }
 
-    .study-section {
-      margin-top: 100px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      width: 80%;
-      max-width: 800px;
-      padding: 30px;
-      text-align: center;
-      backdrop-filter: blur(5px);
-    }
+  .container {
+    display: none;
+    background: linear-gradient(145deg, #6a11cb, #2575fc);
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    width: 750px;
+    max-width: 95%;
+    padding: 30px;
+    color: #fff;
+    margin-top: 80px;
+    transition: 0.3s;
+  }
 
-    .study-section h2 {
-      margin-bottom: 15px;
-    }
+  #question {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
 
-    .fact {
-      background: rgba(255,255,255,0.2);
-      border-radius: 10px;
-      margin: 10px 0;
-      padding: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .fact:hover {
-      background: rgba(255,255,255,0.4);
-      color: #000;
-    }
-    .fact p {
-      display: none;
-      margin-top: 8px;
-      color: #000;
-    }
-  </style>
+  ul { list-style: none; padding: 0; }
+
+  li {
+    background: rgba(255,255,255,0.15);
+    margin: 12px 0;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  li:hover { background: rgba(255,255,255,0.4); transform: scale(1.07); color: #000; }
+  li.correct { background-color: #00b894 !important; color: #fff; }
+  li.wrong { background-color: #d63031 !important; color: #fff; }
+
+  button {
+    padding: 15px;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    background: #00bcd4;
+    color: #fff;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 20px rgba(3,169,244,0.7);
+  }
+
+  #result { text-align: center; display: none; }
+
+  .footer {
+    text-align: center;
+    margin-top: 100px;
+    padding: 50px;
+    color: #fff;
+    background: rgba(0,0,0,0.25);
+    width: 100%;
+    border-top: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .fact {
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px auto;
+    width: 70%;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    transition: 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    max-height: 70px;
+  }
+
+  .fact:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.03);
+    color: #000;
+  }
+
+  .fact.expanded {
+    max-height: 300px;
+    background: rgba(255,255,255,0.5);
+    color: #000;
+  }
+
+  .fact h3 {
+    margin: 0;
+    font-size: 1.3em;
+  }
+
+  .fact p {
+    margin-top: 10px;
+    display: none;
+  }
+
+  .fact.expanded p {
+    display: block;
+  }
+</style>
 </head>
 <body>
-  <!-- Particle canvas -->
-  <canvas id="particles"></canvas>
 
-  <!-- Google Maps button -->
-  <div class="maps-button">
-    <a href="https://www.google.com/maps" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Google_Maps_Logo_2020.svg" alt="Google Maps" />
-    </a>
+<h1>Smart Quiz Portal</h1>
+
+<div class="setup">
+  <h2>Choose your quiz</h2>
+  <select id="category">
+    <option value="physics">⚛️ Physics</option>
+    <option value="math">🧮 Math</option>
+    <option value="history">🏛️ History</option>
+  </select>
+
+  <select id="difficulty">
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="hard">Hard</option>
+  </select>
+
+  <button id="start">Start Quiz</button>
+</div>
+
+<div class="container" id="quiz-container">
+  <div id="quiz">
+    <div id="question"></div>
+    <ul id="choices"></ul>
+    <button id="next">Next</button>
+  </div>
+  <div id="result">
+    <h2>Your Score: <span id="score"></span></h2>
+    <button id="restart">Restart Quiz</button>
+  </div>
+</div>
+
+<div class="footer">
+  <h2>Study Down Here 📘</h2>
+
+  <div class="fact">
+    <h3>⚛️ Physics: Newton’s Laws</h3>
+    <p>Newton’s First Law states that an object will remain at rest or move at a constant velocity unless acted upon by an external force. This explains why you feel pushed back when a car accelerates suddenly!</p>
   </div>
 
-  <div class="container">
-    <div class="quiz-box">
-      <h1>Ultimate Quiz Portal</h1>
-      <p>Select Category:</p>
-      <select id="category">
-        <option value="physics">Physics</option>
-        <option value="math">Math</option>
-        <option value="history">History</option>
-      </select>
-
-      <p>Select Difficulty:</p>
-      <select id="difficulty">
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select><br>
-      <button onclick="startQuiz()">Start Quiz</button>
-
-      <div id="quiz-area"></div>
-    </div>
-
-    <div class="study-section">
-      <h2>📚 Study Down Here</h2>
-      <div class="fact" onclick="toggleFact(this)">
-        ⚡ Newton’s Laws
-        <p>Newton’s laws describe the relationship between an object’s motion and the forces acting on it.</p>
-      </div>
-      <div class="fact" onclick="toggleFact(this)">
-        🔢 Pythagoras Theorem
-        <p>In a right triangle, a² + b² = c² — one of the fundamental theorems of geometry.</p>
-      </div>
-      <div class="fact" onclick="toggleFact(this)">
-        🕰️ The Renaissance
-        <p>A period in European history marking the transition from the Middle Ages to modernity.</p>
-      </div>
-    </div>
+  <div class="fact">
+    <h3>🧮 Math: Pythagoras Theorem</h3>
+    <p>In a right-angled triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides: a² + b² = c². This is key in geometry, architecture, and physics.</p>
   </div>
 
-  <script>
-    // Particle effect
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
-    let particlesArray;
-    const numParticles = 100;
+  <div class="fact">
+    <h3>🏛️ History: Ancient Civilizations</h3>
+    <p>Ancient Egypt, Mesopotamia, and Greece laid the foundations for modern writing, science, and democracy. Their ideas still influence the world today.</p>
+  </div>
 
-    function initParticles() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particlesArray = [];
-      for (let i = 0; i < numParticles; i++) {
-        particlesArray.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 1,
-          speedX: Math.random() * 2 - 1,
-          speedY: Math.random() * 2 - 1
-        });
-      }
-    }
+  <div class="fact">
+    <h3>⚡ Energy and Motion</h3>
+    <p>Kinetic energy depends on mass and velocity: KE = ½mv². Increasing either mass or speed increases kinetic energy exponentially!</p>
+  </div>
 
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-      particlesArray.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
-      });
-      connectParticles();
-      requestAnimationFrame(animateParticles);
-    }
+  <div class="fact">
+    <h3>🧠 Math and Logic</h3>
+    <p>Mathematics is not just about numbers — it’s about reasoning. Logic and problem-solving skills developed in math apply to coding, science, and everyday decisions.</p>
+  </div>
+</div>
 
-    function connectParticles() {
-      for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-          const dx = particlesArray[a].x - particlesArray[b].x;
-          const dy = particlesArray[a].y - particlesArray[b].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.strokeStyle = "rgba(255,255,255,0.2)";
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
+<script>
+const quizzes = {
+  physics: {
+    easy: [
+      {q:"What is gravity measured in?", a:["Newtons","Joules","Watts","Meters"], c:"Newtons"},
+      {q:"Who discovered gravity?", a:["Newton","Einstein","Tesla","Curie"], c:"Newton"},
+      {q:"What is the unit of force?", a:["Joule","Pascal","Newton","Watt"], c:"Newton"},
+      {q:"Which of these is a simple machine?", a:["Lever","Engine","Light bulb","Computer"], c:"Lever"}
+    ],
+    medium: [
+      {q:"What is the speed of light?", a:["3x10^8 m/s","2x10^6 m/s","1x10^7 m/s","5x10^8 m/s"], c:"3x10^8 m/s"},
+      {q:"Who discovered the law of electromagnetic induction?", a:["Faraday","Newton","Tesla","Bohr"], c:"Faraday"},
+      {q:"What type of energy does a moving object have?", a:["Kinetic","Potential","Thermal","Nuclear"], c:"Kinetic"}
+    ],
+    hard: [
+      {q:"Einstein’s theory of relativity is about?", a:["Space & Time","Sound","Light Speed Only","Atoms"], c:"Space & Time"},
+      {q:"What is Planck’s constant?", a:["6.63×10⁻³⁴ Js","9.8 m/s²","3×10⁸ m/s","1.6×10⁻¹⁹ C"], c:"6.63×10⁻³⁴ Js"},
+      {q:"Which law relates pressure and volume of a gas?", a:["Boyle’s Law","Ohm’s Law","Hooke’s Law","Newton’s Law"], c:"Boyle’s Law"}
+    ]
+  },
+  math: {
+    easy: [
+      {q:"2 + 2 = ?", a:["3","4","5","6"], c:"4"},
+      {q:"10 ÷ 2 = ?", a:["2","4","5","10"], c:"5"},
+      {q:"What is 3 x 3?", a:["6","9","12","3"], c:"9"},
+      {q:"What is 100 - 75?", a:["15","20","25","30"], c:"25"}
+    ],
+    medium: [
+      {q:"√81 = ?", a:["7","8","9","10"], c:"9"},
+      {q:"What is 12²?", a:["124","144","122","100"], c:"144"},
+      {q:"Solve: 5x = 20 → x=?", a:["2","3","4","5"], c:"4"}
+    ],
+    hard: [
+      {q:"Derivative of x²?", a:["2x","x","x²","x³"], c:"2x"},
+      {q:"Integral of 1/x dx?", a:["ln|x| + C","x²/2","1/x²","C/x"], c:"ln|x| + C"},
+      {q:"Limit of (sin x)/x as x→0?", a:["0","1","∞","Undefined"], c:"1"}
+    ]
+  },
+  history: {
+    easy: [
+      {q:"Who was the first U.S. President?", a:["Washington","Lincoln","Adams","Jefferson"], c:"Washington"},
+      {q:"The Great Wall is in which country?", a:["India","China","Japan","Korea"], c:"China"},
+      {q:"In which continent is Egypt?", a:["Asia","Europe","Africa","South America"], c:"Africa"},
+      {q:"What did the Romans build for transportation?", a:["Ships","Roads","Planes","Trains"], c:"Roads"}
+    ],
+    medium: [
+      {q:"World War II ended in?", a:["1940","1943","1945","1950"], c:"1945"},
+      {q:"Who was the first man on the moon?", a:["Yuri Gagarin","Neil Armstrong","Buzz Aldrin","John Glenn"], c:"Neil Armstrong"},
+      {q:"When was the Declaration of Independence signed?", a:["1776","1800","1492","1914"], c:"1776"}
+    ],
+    hard: [
+      {q:"The Roman Empire fell in which century?", a:["3rd","5th","7th","9th"], c:"5th"},
+      {q:"Who was known as the Iron Lady?", a:["Margaret Thatcher","Indira Gandhi","Angela Merkel","Golda Meir"], c:"Margaret Thatcher"},
+      {q:"The Cold War was between?", a:["USA & USSR","China & Japan","France & Germany","India & Pakistan"], c:"USA & USSR"}
+    ]
+  }
+};
 
-    window.addEventListener("resize", initParticles);
-    initParticles();
-    animateParticles();
+let currentQuiz = [];
+let currentQuestion = 0;
+let score = 0;
 
-    // Study section toggle
-    function toggleFact(el) {
-      const p = el.querySelector("p");
-      p.style.display = p.style.display === "block" ? "none" : "block";
-    }
+const startBtn = document.getElementById("start");
+const categorySelect = document.getElementById("category");
+const difficultySelect = document.getElementById("difficulty");
+const quizContainer = document.getElementById("quiz-container");
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const nextBtn = document.getElementById("next");
+const resultEl = document.getElementById("result");
+const scoreEl = document.getElementById("score");
+const restartBtn = document.getElementById("restart");
 
-    // Quiz placeholder (you can expand with your questions)
-    function startQuiz() {
-      const area = document.getElementById("quiz-area");
-      const category = document.getElementById("category").value;
-      const difficulty = document.getElementById("difficulty").value;
-      area.innerHTML = `<p>You selected <b>${category}</b> (${difficulty}) — quiz coming soon!</p>`;
-    }
-  </script>
+startBtn.addEventListener("click", () => {
+  const category = categorySelect.value;
+  const difficulty = difficultySelect.value;
+  currentQuiz = quizzes[category][difficulty];
+  document.querySelector(".setup").style.display = "none";
+  quizContainer.style.display = "block";
+  currentQuestion = 0;
+  score = 0;
+  loadQuestion();
+});
+
+function loadQuestion() {
+  const current = currentQuiz[currentQuestion];
+  questionEl.innerText = current.q;
+  choicesEl.innerHTML = "";
+  current.a.forEach(choice => {
+    const li = document.createElement("li");
+    li.innerText = choice;
+    li.addEventListener("click", () => selectAnswer(li, choice));
+    choicesEl.appendChild(li);
+  });
+}
+
+function selectAnswer(li, choice) {
+  const correct = currentQuiz[currentQuestion].c;
+  if (choice === correct) { li.classList.add("correct"); score++; }
+  else { li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c => {if (c.innerText === correct) c.classList.add("correct");}); }
+  document.querySelectorAll("#choices li").forEach(li => li.style.pointerEvents="none");
+}
+
+nextBtn.addEventListener("click", () => {
+  currentQuestion++;
+  if (currentQuestion < currentQuiz.length) loadQuestion();
+  else showResult();
+});
+
+function showResult() {
+  document.getElementById("quiz").style.display = "none";
+  resultEl.style.display = "block";
+  scoreEl.innerText = `${score} / ${currentQuiz.length}`;
+}
+
+restartBtn.addEventListener("click", () => location.reload());
+
+// expand facts
+document.querySelectorAll(".fact").forEach(fact => {
+  fact.addEventListener("click", () => fact.classList.toggle("expanded"));
+});
+</script>
 </body>
 </html>
