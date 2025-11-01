@@ -14,11 +14,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 400vh;
+    min-height: 320vh;
     overflow-x: hidden;
   }
 
-  h1 { text-align:center; margin-top:50px; font-size:2.5em; text-shadow:0 0 10px rgba(255,255,255,0.6); }
+  h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  }
 
   .setup {
     background: rgba(255,255,255,0.1);
@@ -39,8 +44,15 @@
     outline: none;
   }
 
-  .setup select { background: rgba(255,255,255,0.2); color: #fff; }
-  .setup select:hover { background: rgba(255,255,255,0.4); color: #000; }
+  .setup select {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+
+  .setup select:hover {
+    background: rgba(255,255,255,0.4);
+    color: #000;
+  }
 
   .setup button {
     background: #00bcd4;
@@ -48,7 +60,11 @@
     font-weight: bold;
     transition: 0.3s;
   }
-  .setup button:hover { background: #03a9f4; box-shadow: 0 0 15px rgba(3,169,244,0.7); }
+
+  .setup button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 15px rgba(3,169,244,0.7);
+  }
 
   .container {
     display: none;
@@ -63,8 +79,14 @@
     transition: 0.3s;
   }
 
-  #question { font-size:1.4em; margin-bottom:20px; font-weight:bold; }
-  ul { list-style:none; padding:0; }
+  #question {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  ul { list-style: none; padding: 0; }
+
   li {
     background: rgba(255,255,255,0.15);
     margin: 12px 0;
@@ -75,12 +97,28 @@
     transition: all 0.3s ease;
     text-align: center;
   }
+
   li:hover { background: rgba(255,255,255,0.4); transform: scale(1.07); color: #000; }
   li.correct { background-color: #00b894 !important; color: #fff; }
   li.wrong { background-color: #d63031 !important; color: #fff; }
 
-  button { padding: 15px; width: 100%; font-size: 18px; margin-top: 20px; cursor: pointer; border: none; border-radius: 15px; background: #00bcd4; color: #fff; transition: all 0.3s ease; }
-  button:hover { background: #03a9f4; box-shadow: 0 0 20px rgba(3,169,244,0.7); }
+  button {
+    padding: 15px;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    background: #00bcd4;
+    color: #fff;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: #03a9f4;
+    box-shadow: 0 0 20px rgba(3,169,244,0.7);
+  }
 
   #result { text-align: center; display: none; }
 
@@ -95,95 +133,95 @@
   }
 
   .fact {
-    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
-    border-radius: 20px;
-    padding: 25px 30px;
-    margin: 20px auto;
-    width: 75%;
-    font-size: 1.25em;
-    line-height: 1.7em;
-    font-weight: 500;
-    transition: all 0.4s ease;
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px auto;
+    width: 70%;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    transition: 0.3s;
     cursor: pointer;
     overflow: hidden;
-    max-height: 80px;
-    text-align: left;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    max-height: 70px;
   }
+
   .fact:hover {
-    background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
-    transform: scale(1.05);
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.03);
     color: #000;
   }
-  .fact.expanded { max-height: 350px; background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2)); color: #000; }
+
+  .fact.expanded {
+    max-height: 300px;
+    background: rgba(255,255,255,0.5);
+    color: #000;
+  }
 
   .fact h3 { margin: 0; font-size: 1.3em; }
   .fact p { margin-top: 10px; display: none; }
   .fact.expanded p { display: block; }
 
   /* Did You Know Section */
-  .did-you-know { width: 100%; padding: 70px 20px; background: linear-gradient(180deg, #4a00e0, #1a1a40); text-align: center; color: #fff; margin-top: 80px; }
-  .did-you-know h2 { font-size: 2.5em; margin-bottom: 10px; text-shadow:0 0 12px rgba(255,255,255,0.7); }
-  .did-you-know p { font-size: 1.1em; margin-bottom:50px; color: rgba(255,255,255,0.8); }
-  .fact-cards { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; }
-  .fact-card {
-    width:300px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    border-radius: 25px;
-    padding:30px;
-    transition: all 0.4s ease;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    text-align:left;
-    line-height:1.6em;
-    position:relative;
-    overflow:hidden;
-    font-size:1.15em;
-    font-weight:500;
+  .did-you-know {
+    width: 100%;
+    padding: 70px 20px;
+    background: linear-gradient(180deg, #4a00e0, #1a1a40);
+    text-align: center;
+    color: #fff;
+    margin-top: 80px;
   }
-  .fact-card:hover { background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.1)); color:#000; transform:translateY(-10px) scale(1.07);}
-  .fact-card h3 { margin-bottom:15px; font-size:1.5em; text-shadow:0 0 6px rgba(0,0,0,0.5);}
-  .fact-card.physics { border-left:5px solid #00e5ff; }
-  .fact-card.math { border-left:5px solid #ffeb3b; }
-  .fact-card.history { border-left:5px solid #ff9800; }
 
-  /* Solar System */
-  #show-solar { padding:15px 25px; font-size:1.2em; margin-top:50px; border-radius:15px; border:none; cursor:pointer; background:#ff9800; color:#fff; transition:0.3s; }
-  #show-solar:hover { background:#ffa726; box-shadow:0 0 20px rgba(255,165,0,0.7); }
+  .did-you-know h2 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 0 0 12px rgba(255,255,255,0.7); }
+  .did-you-know p { font-size: 1.1em; margin-bottom: 50px; color: rgba(255,255,255,0.8); }
+  .fact-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+  .fact-card { width: 280px; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,0.3); text-align: left; line-height: 1.4em; position: relative; overflow: hidden; }
+  .fact-card:hover { background: rgba(255,255,255,0.3); color: #000; transform: translateY(-8px) scale(1.05); }
+  .fact-card h3 { margin-bottom: 10px; font-size: 1.3em; }
+  .fact-card.physics { border-left: 5px solid #00e5ff; }
+  .fact-card.math { border-left: 5px solid #ffeb3b; }
+  .fact-card.history { border-left: 5px solid #ff9800; }
 
-  #solar-system { position:relative; width: 100%; height: 600px; margin-top:50px; }
-
+  /* Solar System Planets */
   .planet {
-    border-radius:50%;
-    position:absolute;
-    cursor:pointer;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
     transition: all 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    pointer-events: auto;
+    line-height: 1.1em;
+    text-shadow: 0 0 3px rgba(0,0,0,0.7);
   }
 
-  .planet.hyperfocus { transform: scale(3) !important; z-index:100; }
+  .planet.hyperfocus {
+    transform: scale(3) !important;
+    z-index: 100;
+    font-size: 20px !important;
+  }
 
   #planet-facts {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #1a1a40, #4a00e0);
-    padding: 25px 40px;
-    border-radius: 25px;
-    color: #fff;
-    font-size: 1.3em;
-    line-height: 1.7em;
-    text-align: center;
-    max-width: 80%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display:none; 
+    margin-top:20px; 
+    padding:20px; 
+    background: rgba(0,0,0,0.7); 
+    border-radius:15px; 
+    color:#fff; 
+    font-size:18px; 
+    max-width:700px; 
+    text-align:center; 
     transition: all 0.5s ease;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 100;
   }
 
-  #planet-facts.show { opacity:1; pointer-events:auto; }
-  #planet-facts.fade-in { animation: fadeIn 0.6s forwards; }
-  @keyframes fadeIn { from {opacity:0; transform:translate(-50%,20px);} to {opacity:1; transform:translate(-50%,0);} }
+  #planet-facts.show { display:block; opacity:1; }
+  .fade-in { animation: fadeIn 0.7s ease forwards; }
+  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
 
 </style>
 </head>
@@ -191,6 +229,7 @@
 
 <h1>Smart Quiz Portal</h1>
 
+<!-- Quiz Setup -->
 <div class="setup">
   <h2>Choose your quiz</h2>
   <select id="category">
@@ -198,14 +237,17 @@
     <option value="math">🧮 Math</option>
     <option value="history">🏛️ History</option>
   </select>
+
   <select id="difficulty">
     <option value="easy">Easy</option>
     <option value="medium">Medium</option>
     <option value="hard">Hard</option>
   </select>
+
   <button id="start">Start Quiz</button>
 </div>
 
+<!-- Quiz Container -->
 <div class="container" id="quiz-container">
   <div id="quiz">
     <div id="question"></div>
@@ -218,6 +260,7 @@
   </div>
 </div>
 
+<!-- Study Facts Footer -->
 <div class="footer">
   <h2>Study Down Here 📘</h2>
   <div class="fact">
@@ -242,33 +285,45 @@
     <div class="fact-card physics"><h3>⚛️ Physics</h3><p>Light takes only 8 minutes and 20 seconds to travel from the Sun to Earth!</p></div>
     <div class="fact-card math"><h3>🧮 Math</h3><p>The number "zero" was first used in India around the 5th century AD — it revolutionized mathematics!</p></div>
     <div class="fact-card history"><h3>🏛️ History</h3><p>The Great Pyramid of Giza was the tallest human-made structure in the world for over 3,800 years.</p></div>
-    <div class="fact-card physics"><h3>🌌 Physics</h3><p>There are more stars in the universe than grains of sand on all of Earth’s beaches combined!</p></div>
-    <div class="fact-card math"><h3>📏 Math</h3><p>The Fibonacci sequence appears in nature — like sunflower spirals and pinecones!</p></div>
-    <div class="fact-card history"><h3>⚔️ History</h3><p>Ancient Romans used crushed bones and oyster shells to make toothpaste!</p></div>
   </div>
 </div>
 
+<!-- Solar System Button -->
+<button id="show-solar-system">Show Solar System</button>
+
 <!-- Solar System -->
-<button id="show-solar">🌌 Show Solar System</button>
-<div id="solar-system" style="display:none;">
-  <div class="planet" data-name="Mercury" style="width:30px;height:30px;background:#b1b1b1;left:50px;top:250px;"></div>
-  <div class="planet" data-name="Venus" style="width:35px;height:35px;background:#e6c167;left:120px;top:250px;"></div>
-  <div class="planet" data-name="Earth" style="width:40px;height:40px;background:#2a6ef7;left:200px;top:250px;"></div>
-  <div class="planet" data-name="Mars" style="width:35px;height:35px;background:#d1440a;left:280px;top:250px;"></div>
-  <div class="planet" data-name="Jupiter" style="width:70px;height:70px;background:#f4a460;left:380px;top:230px;"></div>
-  <div class="planet" data-name="Saturn" style="width:60px;height:60px;background:#f5deb3;left:500px;top:240px;"></div>
-  <div class="planet" data-name="Uranus" style="width:50px;height:50px;background:#66ffff;left:620px;top:250px;"></div>
-  <div class="planet" data-name="Neptune" style="width:50px;height:50px;background:#1b3dff;left:740px;top:250px;"></div>
+<div id="solar-system" style="display:none; position:relative; width:100%; height:400px; margin-top:50px; background: radial-gradient(circle at center, #000 0%, #111 100%); border-radius:15px;">
+  <div class="planet" data-name="Mercury" style="width:30px;height:30px;background:#b1b1b1;left:50px;top:180px;">☿ Mercury</div>
+  <div class="planet" data-name="Venus" style="width:35px;height:35px;background:#e6c167;left:120px;top:180px;">♀ Venus</div>
+  <div class="planet" data-name="Earth" style="width:40px;height:40px;background:#2a6ef7;left:200px;top:180px;">🌍 Earth</div>
+  <div class="planet" data-name="Mars" style="width:35px;height:35px;background:#d1440a;left:280px;top:180px;">♂ Mars</div>
+  <div class="planet" data-name="Jupiter" style="width:70px;height:70px;background:#f4a460;left:380px;top:160px;">♃ Jupiter</div>
+  <div class="planet" data-name="Saturn" style="width:60px;height:60px;background:#f5deb3;left:500px;top:170px;">♄ Saturn</div>
+  <div class="planet" data-name="Uranus" style="width:50px;height:50px;background:#66ffff;left:620px;top:180px;">⛢ Uranus</div>
+  <div class="planet" data-name="Neptune" style="width:50px;height:50px;background:#1b3dff;left:740px;top:180px;">♆ Neptune</div>
 </div>
+
+<!-- Planet Facts Box -->
 <div id="planet-facts"></div>
 
 <script>
-const quizzes = { physics:{easy:[
-  {q:"What is gravity measured in?",a:["Newtons","Joules","Watts","Meters"],c:"Newtons"},
-  {q:"Who discovered gravity?",a:["Newton","Einstein","Tesla","Curie"],c:"Newton"},
-  {q:"What is the unit of force?",a:["Joule","Pascal","Newton","Watt"],c:"Newton"},
-  {q:"Which of these is a simple machine?",a:["Lever","Engine","Light bulb","Computer"],c:"Lever"}
-]}};
+const quizzes = {
+  physics: { easy: [
+      {q:"What is gravity measured in?", a:["Newtons","Joules","Watts","Meters"], c:"Newtons"},
+      {q:"Who discovered gravity?", a:["Newton","Einstein","Tesla","Curie"], c:"Newton"},
+      {q:"What is the unit of force?", a:["Joule","Pascal","Newton","Watt"], c:"Newton"},
+      {q:"Which of these is a simple machine?", a:["Lever","Engine","Light bulb","Computer"], c:"Lever"}
+    ]
+  },
+  math: { easy: [
+      {q:"2 + 2 = ?", a:["3","4","5","6"], c:"4"}
+    ]
+  },
+  history: { easy: [
+      {q:"Who was the first U.S. President?", a:["Washington","Lincoln","Adams","Jefferson"], c:"Washington"}
+    ]
+  }
+};
 
 let currentQuiz = [];
 let currentQuestion = 0;
@@ -310,34 +365,38 @@ function loadQuestion() {
 
 function selectAnswer(li, choice) {
   const correct = currentQuiz[currentQuestion].c;
-  if(choice===correct){li.classList.add("correct");score++;}
-  else{li.classList.add("wrong");Array.from(choicesEl.children).forEach(c=>{if(c.innerText===correct)c.classList.add("correct");});}
-  document.querySelectorAll("#choices li").forEach(li=>li.style.pointerEvents="none");
+  if (choice === correct) { li.classList.add("correct"); score++; }
+  else { li.classList.add("wrong"); Array.from(choicesEl.children).forEach(c => {if (c.innerText === correct) c.classList.add("correct");}); }
+  document.querySelectorAll("#choices li").forEach(li => li.style.pointerEvents="none");
 }
 
-nextBtn.addEventListener("click",()=>{
+nextBtn.addEventListener("click", () => {
   currentQuestion++;
-  if(currentQuestion<currentQuiz.length) loadQuestion();
+  if (currentQuestion < currentQuiz.length) loadQuestion();
   else showResult();
 });
 
-function showResult(){
-  document.getElementById("quiz").style.display="none";
-  resultEl.style.display="block";
-  scoreEl.innerText=`${score} / ${currentQuiz.length}`;
+function showResult() {
+  document.getElementById("quiz").style.display = "none";
+  resultEl.style.display = "block";
+  scoreEl.innerText = `${score} / ${currentQuiz.length}`;
 }
 
-restartBtn.addEventListener("click",()=>location.reload());
-document.querySelectorAll(".fact").forEach(fact=>fact.addEventListener("click",()=>fact.classList.toggle("expanded")));
+restartBtn.addEventListener("click", () => location.reload());
+
+document.querySelectorAll(".fact").forEach(fact => {
+  fact.addEventListener("click", () => fact.classList.toggle("expanded"));
+});
 
 // Solar system toggle
-document.getElementById('show-solar').addEventListener('click',()=>{
-  const ss=document.getElementById('solar-system');
-  ss.style.display=ss.style.display==='none'?'block':'none';
+const solarBtn = document.getElementById('show-solar-system');
+const solarSystem = document.getElementById('solar-system');
+solarBtn.addEventListener('click', () => {
+  solarSystem.style.display = (solarSystem.style.display === 'none') ? 'block' : 'none';
 });
 
 // Planet facts and hyperfocus
-const planetFacts={
+const planetFacts = {
   Mercury:"Mercury is the closest planet to the Sun and has extreme temperatures.",
   Venus:"Venus is hotter than Mercury due to its thick CO2 atmosphere.",
   Earth:"Earth is the only planet known to support life.",
@@ -358,6 +417,5 @@ document.querySelectorAll('.planet').forEach(planet=>{
   });
 });
 </script>
-
 </body>
 </html>
